@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/ducks/user";
@@ -11,7 +11,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login());
+    const data = {name, password, role}
+    console.log(data)
+    dispatch(login(name, password, role));
   };
 
   return (

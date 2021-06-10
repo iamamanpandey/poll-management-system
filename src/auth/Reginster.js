@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
-import Input from "../components/Input";
+import { useDispatch } from "react-redux";
+
+import { SignUp } from "../redux/ducks/user";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setrole] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+    const data = { name, password, role };
+    dispatch(SignUp(data));
   };
 
   return (
@@ -18,16 +22,16 @@ const Register = () => {
       <form className="w-25 mx-auto" onSubmit={handleSubmit}>
         <div class="form-group">
           <label>Username</label>
-          <Input
+          <input
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Enter username"
           />
         </div>
         <div class="form-group">
           <label>Password</label>
-          <Input
+          <input
             type="password"
             class="form-control"
             id="exampleInputPassword1"
@@ -36,7 +40,12 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <select class="form-select my-3" aria-label="Default select example">
+          <select
+            class="form-select my-3"
+            aria-label="Default select example"
+            onChange={(e) => setrole(e.target.value)}
+            value={role}
+          >
             <option selected>User</option>
             <option value="1">Admin</option>
           </select>

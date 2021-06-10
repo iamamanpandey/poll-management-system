@@ -1,6 +1,7 @@
 export const LOGIN = "login";
-const SIGNUP = "SignUp";
-const LogOut = "LogOut";
+export const SIGNUP = "SignUp";
+const LOGOUT = "LogOut";
+
 
 export const login = () => ({
   type: LOGIN,
@@ -11,17 +12,21 @@ export const SignUp = (user) => ({
   user,
 });
 
-const initialState = {
-  user: undefined,
-};
+export const logout = (user) => ({
+    type: LOGOUT
+  });
+  
+
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state = initialState, action) => {
+export default (state = [], action) => {
+    const response = action.response
   switch (action.type) {
     case LOGIN:
-      return action.payload;
+      return {...state, response};
     case SIGNUP:
-      return action.payload;
+      return {...state, response};
     default:
       return state;
   }

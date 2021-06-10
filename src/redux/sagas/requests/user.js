@@ -6,3 +6,11 @@ export function loginUser() {
     url: "https://secure-refuge-14993.herokuapp.com/login"
   });
 }
+
+
+export function signUpUser() {
+  return axios.request({
+    method: "post",
+    url: "https://secure-refuge-14993.herokuapp.com/add_user"
+  });
+}

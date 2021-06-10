@@ -1,13 +1,23 @@
 import { call, put } from "redux-saga/effects";
-import { LOGIN } from "../../ducks/user";
-import { loginUser } from "../requests/user";
+import { login, SignUp } from "../../ducks/user";
+import { loginUser,signUpUser } from "../requests/user";
 
-export function* handleGetUser(action) {
+
+export function* handleloginUser(action) {
   try {
     const response = yield call(loginUser);
-    console.log(data)
     const { data } = response;
-     yield put(LOGIN(data));
+    yield put(login(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleRegisterUser(action) {
+  try {
+    const response = yield call(signUpUser);
+    const { data } = response;
+     yield put(SignUp(data));
   } catch (error) {
     console.log(error);
   }
