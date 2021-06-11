@@ -1,25 +1,35 @@
 import { call, put } from "redux-saga/effects";
-import { login, SignUp } from "../../actions/index";
-
-import { loginUser,signUpUser } from "../requests/user";
-
+import { axiosCall } from "../requests/user";
+import { loginSuccess } from "../../actions";
 
 export function* handleloginUser(action) {
+  console.log(action, "action");
   try {
-    const response = yield call(loginUser);
-    const { data } = response;
-    yield put({type:'LOGIN', payload:data});
-  } catch (error) {
-    console.log(error.message);
+    const response = yield call(
+      axiosCall,
+      "get",
+      `/login?username=${action.payload.name}&password=${action.payload.password}`
+    );
+    if (response) {
+      yield put(loginSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
   }
 }
 
-export function* handleRegisterUser(action) {
+export function* handlelSignUpUser(action) {
+  console.log(action, "action");
   try {
-    const response = yield call(signUpUser);
-    const { data } = response;
-     yield put(SignUp.types(data));
-  } catch (error) {
-    console.log(error);
+    const response = yield call(
+      axiosCall,
+      "get",
+      `/login?username=${action.payload.name}&password=${action.payload.password}`
+    );
+    if (response) {
+      yield put(loginSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
   }
 }

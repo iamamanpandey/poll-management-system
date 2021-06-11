@@ -1,16 +1,12 @@
-import {LOGIN, SIGNUP,LOGOUT} from '../constants/actionTypes';
+import {  LOGIN_REQUEST, LOGIN_SUCCESS } from "../constants/actionTypes";
 
-export const login = (payload) => ({
-    type: LOGIN,
-    payload
-  });
-  
-  export const SignUp = () => ({
-    type: SIGNUP,
-  });
-  
-  export const logout = () => ({
-      type: LOGOUT
-    });
-    
-  
+export const loginSuccess = (payload) => ({
+  type: LOGIN_SUCCESS,
+  payload,
+});
+
+export const loginRequest = (payload) => ({
+  type: LOGIN_REQUEST,
+  payload,
+});
+
