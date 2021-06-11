@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 
-import { SignUp } from "../redux/ducks/user";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -13,7 +12,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { name, password, role };
-    dispatch(SignUp(data));
   };
 
   return (
@@ -24,6 +22,7 @@ const Register = () => {
           <label>Username</label>
           <input
             type="text"
+            class="form-control"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter username"
