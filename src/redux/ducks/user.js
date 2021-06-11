@@ -1,32 +1,11 @@
-export const LOGIN = "login";
-const SIGNUP = "SignUp";
-const LogOut  = "LogOut"
-
-export const login = () => ({
-  type: LOGIN
-});
-
-export const SignUp = (user) => ({
-  type: SIGNUP,
-  user
-});
-
-
-
-const initialState = {
-  user: undefined
-};
-
-
-
+import { LOGIN_SUCCESS } from "../constants/actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state = initialState, action) => {
+export default (state = [], action) => {
+  const data = action.payload;
   switch (action.type) {
-    case LOGIN:
-        return action.payload;
-      case SIGNUP:
-        return action.payload;
+    case LOGIN_SUCCESS:
+      return { ...state, data };
     default:
       return state;
   }

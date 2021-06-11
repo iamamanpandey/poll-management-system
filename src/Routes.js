@@ -3,7 +3,7 @@ import "./App.css";
 import Nav from "./Nav";
 import {  Switch, Route } from "react-router-dom";
 import Login from "./auth/Login";
-import Register from "./auth/Reginster";
+import Register from "./auth/Register";
 import Home from "./Home";
 
 

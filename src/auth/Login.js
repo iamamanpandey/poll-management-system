@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
-import {useDispatch} from 'react-redux';
-import { login } from "../redux/ducks/user";
+import { useDispatch } from "react-redux";
+import {  loginRequest } from "../redux/actions/index";
+
 const Login = () => {
   const [name, setname] = useState();
   const [password, setpassword] = useState();
-  const [role, setrole] = useState('Guest');
-  
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(login())
+    e.preventDefault();
+    const data = { name, password };
+    dispatch(loginRequest(data));
   };
-
 
   return (
     <div>
@@ -38,13 +38,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
-          <select
-            class="form-select my-3"
-            aria-label="Default select example"
-            onChange={(e) => setrole(e.target.value)} value={role}>
-            <option value="Guest"> Guest </option>
-            <option value="Admin">Admin</option>
-          </select>
         </div>
         <Button type="submit">Submit</Button>
       </form>
