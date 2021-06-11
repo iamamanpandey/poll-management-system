@@ -4,7 +4,7 @@ const DashBoard = () => {
     return(
   <div className="continer-fluid">
    
-<h1>helllo</h1>
+<h1>helllo, user</h1>
   </div>
     );
 };

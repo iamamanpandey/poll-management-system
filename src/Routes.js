@@ -17,7 +17,7 @@ function Routes() {
       <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <UserRoute exact path="/dashboard" component={DashBoard} />
+        <UserRoute exact path="/user/dashboard" component={DashBoard} />
       </Switch>
     </div>
   );

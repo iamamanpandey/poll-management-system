@@ -5,7 +5,6 @@ import { Redirect, Route } from "react-router-dom";
 
 const UserRoute = ({ children, ...rest }) => {
   const token  = localStorage.getItem('token')
-  console.log("tokenq2q3",token)
   if(!token){
     return <Redirect to="/"/>
   }
