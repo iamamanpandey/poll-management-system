@@ -1,13 +1,13 @@
 import React from "react";
-
+import Loading from './loading'
 import { Redirect, Route } from "react-router-dom";
 
 
-const UserRoute = ({ children, ...rest }) => {
+const AdminRoute = ({ children, ...rest }) => {
   const token  = localStorage.getItem('token')
   if(!token){
-    return <Redirect to="/"/>
+    return <Loading/>
   }
   return <Route {...rest} render={() => children} />
 };
-export default UserRoute;
+export default AdminRoute;

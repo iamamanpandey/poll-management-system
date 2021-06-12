@@ -1,9 +1,9 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
+import {setlistUsers} from '../../ducks/userList'
 import { loginSuccess,signupSuccess } from "../../actions";
 
 export function* handleloginUser(action) {
-  console.log(action, "action");
   try {
     const response = yield call(
       axiosCall,
@@ -11,7 +11,7 @@ export function* handleloginUser(action) {
       `/login?username=${action.payload.name}&password=${action.payload.password}`
     );
     if (response) {
-      yield put(loginSuccess(response.data));
+      yield put(loginSuccess(response.data, action.payload));
       yield localStorage.setItem('token', response.data.token);
     }
   } catch (e) {
@@ -29,6 +29,21 @@ export function* handlelSignUpUser(action) {
     );
     if (response) {
       yield put(signupSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* handlelistUsers(action) {
+  try {
+    const response = yield call(
+      axiosCall,
+      "get",
+      `/list_users`
+    );
+    if (response) {
+      yield put(setlistUsers(response.data));
     }
   } catch (e) {
     console.log(e);

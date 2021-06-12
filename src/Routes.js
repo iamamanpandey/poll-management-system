@@ -1,23 +1,26 @@
 import React from "react";
 import "./App.css";
-import Nav from "./Nav";
 import {  Switch, Route } from "react-router-dom";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import UserRoute from "./PrivateRoutes/userRoutes";
-import DashBoard from "./user/Dashboard";
+import AdminRoute from "./PrivateRoutes/adminRoutes";
 import Home from "./Home";
+import UserList from "./admin/UserList";
+import Create from "./admin/Create";
+import Dashboard from "./admin/Dashboard";
 
 
 function Routes() {
   return (
     <div className="App ">
-      <Nav />
       <Switch>
       <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <UserRoute exact path="/user/dashboard" component={DashBoard} />
+        <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+        <AdminRoute exact path="/admin/userlist" component={UserList} />
+        <AdminRoute exact path="/admin/create" component={Create} />
+
       </Switch>
     </div>
   );
