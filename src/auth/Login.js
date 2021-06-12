@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
-import {  loginRequest } from "../redux/actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequest } from "../redux/actions/index";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [name, setname] = useState();
   const [password, setpassword] = useState();
 
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { name, password };
+    if (!name || !password) return alert("empty fields");
     dispatch(loginRequest(data));
+    history.push("/user/dashboard");
   };
 
   return (

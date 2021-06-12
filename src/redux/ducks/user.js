@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS } from "../constants/actionTypes";
+import { LOGIN_SUCCESS,SIGNUP_SUCCESS } from "../constants/actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = [], action) => {
@@ -6,6 +6,8 @@ export default (state = [], action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return { ...state, data };
+      case SIGNUP_SUCCESS:
+        return { ...state, data };
     default:
       return state;
   }

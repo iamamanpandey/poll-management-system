@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { loginSuccess } from "../../actions";
+import { loginSuccess,signupSuccess } from "../../actions";
 
 export function* handleloginUser(action) {
   console.log(action, "action");
@@ -12,6 +12,7 @@ export function* handleloginUser(action) {
     );
     if (response) {
       yield put(loginSuccess(response.data));
+      yield localStorage.setItem('token', response.data.token);
     }
   } catch (e) {
     console.log(e);
@@ -23,11 +24,11 @@ export function* handlelSignUpUser(action) {
   try {
     const response = yield call(
       axiosCall,
-      "get",
-      `/login?username=${action.payload.name}&password=${action.payload.password}`
+      "post",
+      `/add_user?username=${action.payload.name}&password=${action.payload.password}&password=${action.payload.role}`
     );
     if (response) {
-      yield put(loginSuccess(response.data));
+      yield put(signupSuccess(response.data));
     }
   } catch (e) {
     console.log(e);

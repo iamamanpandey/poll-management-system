@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
-
+import { signupRequest } from "../redux/actions";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setrole] = useState("");
+  const [role, setrole] = useState("Guest");
   const dispatch = useDispatch();
-
+  let history = useHistory();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { name, password, role };
+    dispatch(signupRequest(data));
+    history.push("/login");
   };
 
   return (
@@ -45,8 +49,8 @@ const Register = () => {
             onChange={(e) => setrole(e.target.value)}
             value={role}
           >
-            <option selected>User</option>
-            <option value="1">Admin</option>
+            <option value="Guest"> Guest </option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
         <Button>Submit</Button>
