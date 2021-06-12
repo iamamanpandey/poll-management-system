@@ -1,10 +1,10 @@
 import React from "react";
+import Sidebar from "../components/sidebar";
 
 const DashBoard = () => {
     return(
-  <div className="continer-fluid">
-   
-<h1>helllo, user</h1>
+  <div>
+    <Sidebar/>
   </div>
     );
 };

@@ -3,8 +3,11 @@ import createSagaMiddleware from "redux-saga";
 import userReducer from "./ducks/user";
 import { watcherSaga } from "./sagas/rootSaga";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import userList from "./ducks/userList";
+
 const reducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  userList:userList
 });
 
 const sagaMiddleware = createSagaMiddleware();
