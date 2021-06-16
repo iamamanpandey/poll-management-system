@@ -9,6 +9,7 @@ export function* handleCreatePoll(action) {
       "post",
       `add_poll?title=${action.payload.title}&options=${action.payload.options}`
     );
+    console.log("response", response);
     if (response) {
       yield put(createPoll(response.data, action.payload));
     }
@@ -20,11 +21,8 @@ export function* handleCreatePoll(action) {
 export function* handleShowPoll(action) {
   console.log(action, "action");
   try {
-    const response = yield call(
-      axiosCall,
-      "get",
-      `/add_user?username=${action.payload.name}&password=${action.payload.password}&password=${action.payload.role}`
-    );
+    const response = yield call(axiosCall, "get", `/ist_polls`);
+    console.log("response.data", response.data);
     if (response) {
       yield put(showPoll(response.data));
     }

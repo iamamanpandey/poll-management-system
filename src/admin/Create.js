@@ -6,6 +6,7 @@ import { createPoll } from "../redux/actions";
 
 const Create = () => {
   const [title, settitle] = useState("");
+  
   const [options, setoptions] = useState({
     opt1: "",
     opt2: "",
