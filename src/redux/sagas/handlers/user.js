@@ -12,7 +12,7 @@ export function* handleloginUser(action) {
     );
     if (response) {
       yield put(loginSuccess(response.data, action.payload));
-      yield localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.token);
     }
   } catch (e) {
     console.log(e);

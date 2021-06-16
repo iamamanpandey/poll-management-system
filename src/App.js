@@ -10,11 +10,7 @@ function App() {
   let history = useHistory();
 
   useEffect(() => {
-    if (token) {
-      history.push("/");
-    }else{
-      history.push('/login')
-    }
+    if (!token)  history.push('/login')
 
   }, [token]);
 
