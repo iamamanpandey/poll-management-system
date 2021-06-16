@@ -1,11 +1,13 @@
 import { takeLatest } from "redux-saga/effects";
-import {  handleloginUser, handlelSignUpUser, handlelistUsers} from "./handlers/user";
-import {   LOGIN_REQUEST ,SIGNUP_REQUEST} from "../constants/actionTypes";
-import {GET_LIST_USERS} from '../ducks/userList';
+import {  handleloginUser, handlelSignUpUser} from "./handlers/user";
+import {  SHOW_POLL, CREATE_POLL, LOGIN_REQUEST ,SIGNUP_REQUEST} from "../constants/actionTypes";
+import { handleCreatePoll, handleShowPoll } from "./handlers/polls";
 
 export function* watcherSaga() {
   yield takeLatest(SIGNUP_REQUEST, handlelSignUpUser);
   yield takeLatest(LOGIN_REQUEST, handleloginUser);
-  yield takeLatest(GET_LIST_USERS, handlelistUsers);
+  yield takeLatest(CREATE_POLL, handleCreatePoll);
+  yield takeLatest(SHOW_POLL, handleShowPoll);
+
 }
 

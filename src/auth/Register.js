@@ -10,10 +10,11 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [role, setrole] = useState("Guest");
   const dispatch = useDispatch();
+
   let history = useHistory();
 
+  
   const token = localStorage.getItem('token', token)
-
   useEffect(() => {
     if (token) history.push("/");
   }, [token]);
