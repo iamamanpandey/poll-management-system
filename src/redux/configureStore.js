@@ -4,9 +4,12 @@ import userReducer from "./ducks/user";
 import { watcherSaga } from "./sagas/rootSaga";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import userList from "./ducks/userList";
+import pollreducer from "./ducks/polls";
+
 
 const reducer = combineReducers({
   user: userReducer,
+  poll:pollreducer,
   userList:userList
 });
 
