@@ -9,6 +9,10 @@ import {
   SHOW_POLL_SUCCESS,
   CREATE_POLL_ERROR,
   CREATE_POLL_SUCCESS,
+  GET_POLL_BY_ID,
+  REQ_POLL_BY_ID,
+  DELETE_POLL_REQ,
+  DELETE_POLL_SUCCESS,
 } from "../constants/actionTypes";
 
 export const loginSuccess = (payload) => ({
@@ -60,4 +64,29 @@ export const showPollSuccess = (payload) => ({
 export const showPollErrror = () => ({
   type: SHOW_POLL_ERROR,
 });
+
+
+//show poll by id
+export const reqPollById = (payload) => ({
+  type: REQ_POLL_BY_ID,
+  payload
+});
+
+
+export const getPollById = (payload) => ({
+  type: GET_POLL_BY_ID,
+  payload
+});
+
+
+//delete poll
+export const deletePollReq = (payload) => ({
+  type: DELETE_POLL_REQ,
+  payload
+});
+
+export const deletePollSuccess = () => ({
+  type: DELETE_POLL_SUCCESS,
+});
+
 
