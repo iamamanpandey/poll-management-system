@@ -1,20 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showPoll } from "../redux/actions";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+
+  const poll = useSelector((state) => state.poll);
+
   useEffect(() => {
     dispatch(showPoll());
-  }, [dispatch]);
+  }, []);
+
 
   return (
     <div>
       <Sidebar />
       <h1 style={{ marginLeft: "20%" }}>Hello,index</h1>
 
-      <div class="d-flex justify-content-center row">
+      {/* {poll.data.data.map((x)=><h1>{x.title}</h1>)} */}
+
+      {/* <table>
+        {!poll ? (
+          <p>Loading.....</p>
+        ) : (
+          poll.data.map((user) => (
+            <tr key={user.id}>
+              <td>Name: {user.title}</td>
+            </tr>
+          ))
+        )}
+      </table> */}
+
+      {/* <div class="d-flex justify-content-center row">
         <div class="col-md-10 col-lg-10">
           <div class="border">
             <div class="question bg-white p-3 border-bottom">
@@ -58,8 +76,7 @@ const Dashboard = () => {
             <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
               <button
                 class="btn btn-primary d-flex align-items-center btn-danger"
-                type="button"
-              >
+                type="button">
                 <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous
               </button>
               <button
@@ -72,6 +89,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+    */}
     </div>
   );
 };
