@@ -8,26 +8,46 @@ const UserList = () => {
   useEffect(() => {
     axios
       .get("https://secure-refuge-14993.herokuapp.com/list_users")
-      .then((results) => results.json())
       .then((res) => {
         console.log(res);
-        setusers(res);
+        setusers(res.data);
       })
       .catch(function (error) {
         console.log(error);
-      });
+      })
   }, []);
+
   return (
     <div>
       <Sidebar />
       <div className="mx-auto  w-75">
         <h1 style={{ marginLeft: "20%" }}> </h1>
-
-        {/* {!users ? 'Loadin.......' :  users.data.map(user => (
-            <div key={user.id}>
-              <p>Name: {user.role}</p>
-            </div>
-          ))} */}
+        <table class="table w-75" style={{ marginLeft: "20%" }}>
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Username</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {!users ? (
+              <p>Loadin....... </p>
+            ) : (
+              users.data.map((user) => {
+                return (
+                  <tr key={user._id}>
+                    <th scope="row">{user._id}</th>
+                    <td>{user.username}</td>
+                    <td>{user.password}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

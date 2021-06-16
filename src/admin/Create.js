@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Sidebar from "../components/sidebar";
 import Button from "../components/Button";
-import {useDispatch} from 'react-redux';
-import { createPoll } from "../redux/actions";
+import { useDispatch } from "react-redux";
+import { createPollRequest } from "../redux/actions";
 
 const Create = () => {
   const [title, settitle] = useState("");
-  
+
   const [options, setoptions] = useState({
     opt1: "",
     opt2: "",
@@ -14,14 +14,13 @@ const Create = () => {
     opt4: "",
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Optstios", options);
-    const   data ={title, options }
-    console.log('data', data)
-    dispatch(createPoll(data))
-    
+    const data = { title, options };
+    console.log("data", data);
+    dispatch(createPollRequest(data));
+    settitle(" ");
   };
 
   return (
