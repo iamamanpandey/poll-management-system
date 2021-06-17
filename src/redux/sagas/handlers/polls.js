@@ -37,7 +37,6 @@ export function* handlePollById(action) {
       "get",
       `/list_poll?id=${action.payload}`
     );
-    console.log('responseeee', response.data)
     if (response) {
       yield put(getPollById(response.data, action.payload));
     }
@@ -107,12 +106,15 @@ export function* handleEditTitle(action) {
 
 export function* handleAddVote(action) {
   console.log("voteee", action)
+  const token= localStorage.getItem('token')
+  const headers = {access_token:token}
   try {
     const response = yield call(
       axiosCall,
       "post",
       `/do_vote?id=${action.payload.id}&option_text=${action.payload.text}`,
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWEwMTgyYzU5NTI3ZmUwMDEyMzcwN2IyIiwiaWF0IjoxNTEwMDQ4NDY4LCJleHAiOjE1MTM2NDg0Njh9.DG93Hq-Fde9kNZbgnr34l2dZyeEYyJ0OfD_9yZK1JCQ'
+       { },
+       headers
     );
     if (response) {
       yield put(editTitleSuccess(response.data));

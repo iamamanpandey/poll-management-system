@@ -26,40 +26,22 @@ const Dashboard = () => {
             poll.data.map((user) => (
               <div class="border m-4 shadow">
                 <div class="question bg-white p-3 ">
-                  <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom">
+                  <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom mb-4">
                     <h5 class="mt-1 ml-2">{user.title}</h5>
                   </div>
-                  <div class="ans ml-2">
-                    <label class="radio">
-                      <input type="radio" name="brazil" value="brazil" />
-                      <span>Brazil</span>
+                   {user.options.map((item)=>(
+                  <div class="text-center">
+                   <label class="btn btn-outline-success w-50 ">
+                      {item.option}
                     </label>
                   </div>
-                  <div class="ans ml-2">
-                    <label class="radio">
-                      <input type="radio" name="Germany" value="Germany" />
-                      <span>Germany</span>
-                    </label>
-                  </div>
-                  <div class="ans ml-2">
-                    <label class="radio">
-                      <input type="radio" name="Indonesia" value="Indonesia" />
-                      <span>Indonesia</span>
-                    </label>
-                  </div>
-                  <div class="ans ml-2">
-                    <label class="radio">
-                      <input type="radio" name="Russia" value="Russia " />
-                      <span>Russia</span>
-                    </label>
-                  </div>
+                    ))}
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
                   <Link to={`/admin/polls/${user._id}`}>
                     <button
                       class="btn btn-primary border-success align-items-center btn-success"
                       type="button"
-                      onClick={() => dispatch(reqPollById(user._id))}
                     >
                       SEE MORE <i class="fa fa-angle-right ml-2"></i>
                     </button>

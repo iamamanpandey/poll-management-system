@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 const SinglePost = (props) => {
   const dispatch = useDispatch();
-  const poll = useSelector((state) => state.poll.data);
 
-  console.log("Props", poll);
+  const poll = useSelector((state) => state.poll.data);
+console.log("polll", poll)
   useEffect(() => {
     dispatch(reqPollById(props.match.params.id));
-  }, [dispatch]);
+  }, []);
 
   const deleteConfirm = (id) => {
     let answer = window.confirm("Are  you sure want to delete the post");
