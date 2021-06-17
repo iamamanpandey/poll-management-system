@@ -3,10 +3,11 @@ import Sidebar from "../components/sidebar";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { createPollRequest } from "../redux/actions";
+import {useHistory} from 'react-router-dom';
 
 const Create = () => {
   const [title, settitle] = useState("");
-
+  const history =useHistory()
   const [options, setoptions] = useState({
     opt1: "",
     opt2: "",
@@ -21,6 +22,7 @@ const Create = () => {
     console.log("data", data);
     dispatch(createPollRequest(data));
     settitle(" ");
+    history.push('/admin/dashboard')
   };
 
   return (

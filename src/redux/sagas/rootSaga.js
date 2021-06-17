@@ -1,7 +1,27 @@
 import { takeLatest } from "redux-saga/effects";
-import {  handleloginUser, handlelSignUpUser} from "./handlers/user";
-import {  LOGIN_REQUEST ,SIGNUP_REQUEST, CREATE_POLL_REQUEST, SHOW_POLL_REQUEST, REQ_POLL_BY_ID} from "../constants/actionTypes";
-import { handleCreatePoll, handleShowPoll } from "./handlers/polls";
+import { handleloginUser, handlelSignUpUser } from "./handlers/user";
+import {
+  LOGIN_REQUEST,
+  SIGNUP_REQUEST,
+  CREATE_POLL_REQUEST,
+  SHOW_POLL_REQUEST,
+  REQ_POLL_BY_ID,
+  DELETE_POLL_REQ,
+  ADD_OPTION_REQ,
+  DELETE_OPTION_REQ,
+  EDIT_TITLE_REQ,
+  ADD_VOTE_REQ,
+} from "../constants/actionTypes";
+import {
+  handleCreatePoll,
+  handleShowPoll,
+  handlePollById,
+  handleDeletePoll,
+  handleAddOption,
+  handleDeleteOption,
+  handleEditTitle,
+  handleAddVote,
+} from "./handlers/polls";
 
 export function* watcherSaga() {
   yield takeLatest(SIGNUP_REQUEST, handlelSignUpUser);
@@ -10,7 +30,12 @@ export function* watcherSaga() {
   yield takeLatest(CREATE_POLL_REQUEST, handleCreatePoll);
   yield takeLatest(SHOW_POLL_REQUEST, handleShowPoll);
 
-  yield takeLatest(REQ_POLL_BY_ID, handleShowPoll);
+  yield takeLatest(REQ_POLL_BY_ID, handlePollById);
+  yield takeLatest(DELETE_POLL_REQ, handleDeletePoll);
 
+  yield takeLatest(ADD_OPTION_REQ, handleAddOption);
+  yield takeLatest(DELETE_OPTION_REQ, handleDeleteOption);
+
+  yield takeLatest(EDIT_TITLE_REQ, handleEditTitle);
+  yield takeLatest(ADD_VOTE_REQ, handleAddVote);
 }
-

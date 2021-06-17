@@ -9,6 +9,8 @@ import UserList from "./admin/UserList";
 import Create from "./admin/Create";
 import Dashboard from "./admin/Dashboard";
 import SinglePost from "./components/SinglePoll";
+import Option from "./components/AddOption";
+import UpdateTitle from "./components/EditTitle";
 
 
 function Routes() {
@@ -22,6 +24,8 @@ function Routes() {
         <AdminRoute exact path="/admin/userlist" component={UserList} />
         <AdminRoute exact path="/admin/create" component={Create} />
         <AdminRoute exact path="/admin/polls/:id" component={SinglePost} />
+        <AdminRoute exact path="/admin/addoption/:id" component={Option} />
+        <AdminRoute exact path="/admin/polls/edittitle/:id" component={UpdateTitle} />
 
       </Switch>
     </div>
