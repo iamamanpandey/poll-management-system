@@ -12,7 +12,13 @@ import {
   GET_POLL_BY_ID,
   REQ_POLL_BY_ID,
   DELETE_POLL_REQ,
+  ADD_OPTION_REQ,
+  ADD_OPTION_SUCCESS,
+  DELETE_OPTION_REQ,
+  DELETE_OPTION_SUCCESS,
   DELETE_POLL_SUCCESS,
+  EDIT_TITLE_REQ,
+  EDIT_TITLE_SUCCESS,
 } from "../constants/actionTypes";
 
 export const loginSuccess = (payload) => ({
@@ -50,7 +56,6 @@ export const createPollSuccess = (payload) => ({
   payload,
 });
 
-
 //show poll
 export const showPollRequest = () => ({
   type: SHOW_POLL_REQUEST,
@@ -58,35 +63,64 @@ export const showPollRequest = () => ({
 
 export const showPollSuccess = (payload) => ({
   type: SHOW_POLL_SUCCESS,
-  payload
+  payload,
 });
 
 export const showPollErrror = () => ({
   type: SHOW_POLL_ERROR,
 });
 
-
 //show poll by id
 export const reqPollById = (payload) => ({
   type: REQ_POLL_BY_ID,
-  payload
+  payload,
 });
-
 
 export const getPollById = (payload) => ({
   type: GET_POLL_BY_ID,
-  payload
+  payload,
 });
-
 
 //delete poll
 export const deletePollReq = (payload) => ({
   type: DELETE_POLL_REQ,
+  payload,
+});
+
+export const deletePollSuccess = (payload) => ({
+  type: DELETE_POLL_SUCCESS,
+  payload,
+});
+
+//add option to poll
+export const addOptionReq = (payload) => ({
+  type: ADD_OPTION_REQ,
+  payload,
+});
+
+export const addOptionSuccess = () => ({
+  type: ADD_OPTION_SUCCESS,
+});
+
+//add option to poll
+export const deleteOptionReq = (payload) => ({
+  type: DELETE_OPTION_REQ,
+  payload,
+});
+
+export const deleteOptionSuccess = (payload) => ({
+  type: DELETE_OPTION_SUCCESS,
   payload
 });
 
-export const deletePollSuccess = () => ({
-  type: DELETE_POLL_SUCCESS,
+
+//edit title to poll
+export const editTitleReq = (payload) => ({
+  type: EDIT_TITLE_REQ,
+  payload,
 });
 
-
+export const editTitleSuccess = (payload) => ({
+  type: EDIT_TITLE_SUCCESS,
+  payload
+});

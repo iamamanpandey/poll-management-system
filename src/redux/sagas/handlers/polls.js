@@ -1,14 +1,13 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { showPollSuccess, createPollSuccess, getPollById, deletePollSuccess } from "../../actions";
+import { showPollSuccess, createPollSuccess, getPollById, deletePollSuccess, addOptionSuccess, deleteOptionSuccess,editTitleSuccess } from "../../actions";
 
 export function* handleCreatePoll(action) {
   try {
-    // add_poll?title=first%20polll&options=opt1____opt2____opt3____opt4
     const response = yield call(
       axiosCall,
       "post",
-      `/add_poll?title=${action.payload.title}&options=${action.payload.options.opt1}____${action.payload.options.opt2}____${action.payload.options.opt3}`
+      `/add_poll?title=${action.payload.title}&options=${action.payload.options.opt1}____${action.payload.options.opt2}____${action.payload.options.opt3}____${action.payload.options.opt4}`
     );
     if (response) {
       yield put(createPollSuccess(response.data, action.payload));
@@ -61,3 +60,50 @@ export function* handleDeletePoll(action) {
     console.log(e);
   }
 }
+
+export function* handleDeleteOption(action) {
+  try {
+    const response = yield call(
+      axiosCall,
+      "delete",
+      `/delete_poll_option?id=${action.payload.id}&option_text=${action.payload.text}`);
+    if (response) {
+      yield put(deleteOptionSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* handleAddOption(action) {
+  try {
+    const response = yield call(
+      axiosCall,
+      "put",
+      `/add_new_option?id=${action.payload.id}&option_text=${action.payload.value}`
+    );
+    if (response) {
+      yield put(addOptionSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* handleEditTitle(action) {
+  try {
+    const response = yield call(
+      axiosCall,
+      "put",
+      `/update_poll_title?id=${action.payload.id}&title=${action.payload.value}`
+    );
+    if (response) {
+      yield put(editTitleSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
