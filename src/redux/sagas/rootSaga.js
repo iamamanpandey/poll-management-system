@@ -10,6 +10,7 @@ import {
   ADD_OPTION_REQ,
   DELETE_OPTION_REQ,
   EDIT_TITLE_REQ,
+  ADD_VOTE_REQ,
 } from "../constants/actionTypes";
 import {
   handleCreatePoll,
@@ -19,6 +20,7 @@ import {
   handleAddOption,
   handleDeleteOption,
   handleEditTitle,
+  handleAddVote,
 } from "./handlers/polls";
 
 export function* watcherSaga() {
@@ -35,4 +37,5 @@ export function* watcherSaga() {
   yield takeLatest(DELETE_OPTION_REQ, handleDeleteOption);
 
   yield takeLatest(EDIT_TITLE_REQ, handleEditTitle);
+  yield takeLatest(ADD_VOTE_REQ, handleAddVote);
 }

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reqPollById, deletePollReq, deleteOptionReq } from "../redux/actions";
+import { reqPollById, deletePollReq, deleteOptionReq, addVoteReq } from "../redux/actions";
 import { Link } from "react-router-dom";
-import Option from "./AddOption";
 
 const SinglePost = (props) => {
   const dispatch = useDispatch();
@@ -47,13 +46,38 @@ const SinglePost = (props) => {
               <div className=" text-center">
                 <label class="btn btn-outline-success w-50 ">
                   {option.option}
-                  <button
-                    class="btn btn-primary  float-right btn-danger"
-                    type="button"
-                    onClick={() => dispatch(deleteOptionReq({id:poll.data._id,text:option.option}))}
-                   >
-                    <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Delete
-                  </button>
+                  <div className="float-right">
+                    <button
+                      class="btn btn-primary  "
+                      type="button"
+                      onClick={() =>
+                        dispatch(
+                          addVoteReq({
+                            id: poll.data._id,
+                            text: option.option,
+                          })
+                        )
+                      }
+                    >
+                      <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Vote-
+                      {option.vote}
+                    </button>
+
+                    <button
+                      class="btn btn-primary   btn-danger"
+                      type="button"
+                      onClick={() =>
+                        dispatch(
+                          deleteOptionReq({
+                            id: poll.data._id,
+                            text: option.option,
+                          })
+                        )
+                      }
+                    >
+                      <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Delete
+                    </button>
+                  </div>
                 </label>
               </div>
             ))}

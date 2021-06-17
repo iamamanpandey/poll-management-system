@@ -19,6 +19,8 @@ import {
   DELETE_POLL_SUCCESS,
   EDIT_TITLE_REQ,
   EDIT_TITLE_SUCCESS,
+  ADD_VOTE_SUCCESS,
+  ADD_VOTE_REQ,
 } from "../constants/actionTypes";
 
 export const loginSuccess = (payload) => ({
@@ -122,5 +124,17 @@ export const editTitleReq = (payload) => ({
 
 export const editTitleSuccess = (payload) => ({
   type: EDIT_TITLE_SUCCESS,
+  payload
+});
+
+
+//add vote
+export const addVoteReq = (payload) => ({
+  type: ADD_VOTE_REQ,
+  payload,
+});
+
+export const addVoteSuccess = (payload) => ({
+  type: ADD_VOTE_SUCCESS,
   payload
 });
