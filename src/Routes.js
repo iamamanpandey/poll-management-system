@@ -8,6 +8,7 @@ import Home from "./Home";
 import UserList from "./admin/UserList";
 import Create from "./admin/Create";
 import Dashboard from "./admin/Dashboard";
+import SinglePost from "./components/SinglePoll";
 
 
 function Routes() {
@@ -20,6 +21,7 @@ function Routes() {
         <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
         <AdminRoute exact path="/admin/userlist" component={UserList} />
         <AdminRoute exact path="/admin/create" component={Create} />
+        <AdminRoute exact path="/admin/polls/:id" component={SinglePost} />
 
       </Switch>
     </div>
