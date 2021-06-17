@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { showPollSuccess, createPollSuccess, getPollById } from "../../actions";
+import { showPollSuccess, createPollSuccess, getPollById, deletePollSuccess } from "../../actions";
 
 export function* handleCreatePoll(action) {
   try {
@@ -47,17 +47,17 @@ export function* handlePollById(action) {
   }
 }
 
-// export function* handleDeletePoll(action) {
-//   try {
-//     const response = yield call(
-//       axiosCall,
-//       "post",
-//       `delete_poll?id=${action.payload.id}`
-//     );
-//     if (response) {
-//       yield put(createPoll(response.data, action.payload));
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
+export function* handleDeletePoll(action) {
+  try {
+    const response = yield call(
+      axiosCall,
+      "delete",
+      `/delete_poll?id=${action.payload}`
+    );
+    if (response) {
+      yield put(deletePollSuccess(response.data));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}

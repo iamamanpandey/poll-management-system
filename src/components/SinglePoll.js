@@ -6,20 +6,19 @@ const SinglePost = (props) => {
   const dispatch = useDispatch();
   const poll = useSelector((state) => state.poll.data);
 
-  console.log("Props", poll.data);
+  console.log("Props", poll);
   useEffect(() => {
     dispatch(reqPollById(props.match.params.id));
   }, [dispatch]);
 
-
-  
   return (
     <div>
       <div className="container pb-5">
         <br />
         <h1>hello, singlepost</h1>
-
+{poll && poll.data && 
          <h1>{poll.title}</h1> 
+}
       </div>
     </div>
   );

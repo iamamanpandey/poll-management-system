@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { loginRequest, loginSuccess } from "../redux/actions/index";
+import { useDispatch } from "react-redux";
+import { loginRequest } from "../redux/actions/index";
 import { useHistory } from "react-router-dom";
 import Nav from "../Nav";
 const Login = () => {
@@ -9,9 +9,9 @@ const Login = () => {
   const [password, setpassword] = useState();
 
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token", token);
   let history = useHistory();
-
+  
+  const token = localStorage.getItem("token", token);
   useEffect(() => {
     if (token) history.push("/");
   }, [token]);
