@@ -1,6 +1,15 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { showPollSuccess, createPollSuccess, getPollById, deletePollSuccess, addOptionSuccess, deleteOptionSuccess,editTitleSuccess } from "../../actions";
+import {
+  showPollSuccess,
+  createPollSuccess,
+  getPollById,
+  deletePollSuccess,
+  addOptionSuccess,
+  deleteOptionSuccess,
+  editTitleSuccess,
+  addVoteSuccess,
+} from "../../actions";
 
 export function* handleCreatePoll(action) {
   try {
@@ -52,6 +61,7 @@ export function* handleDeletePoll(action) {
       "delete",
       `/delete_poll?id=${action.payload}`
     );
+    console.log("response", response);
     if (response) {
       yield put(deletePollSuccess(response.data));
     }
@@ -65,9 +75,12 @@ export function* handleDeleteOption(action) {
     const response = yield call(
       axiosCall,
       "delete",
-      `/delete_poll_option?id=${action.payload.id}&option_text=${action.payload.text}`);
+      `/delete_poll_option?id=${action.payload.id}&option_text=${action.payload.text}`
+    );
     if (response) {
       yield put(deleteOptionSuccess(response.data));
+      yield call(getPollById());
+   
     }
   } catch (e) {
     console.log(e);
@@ -105,26 +118,21 @@ export function* handleEditTitle(action) {
 }
 
 export function* handleAddVote(action) {
-  console.log("voteee", action)
-  const token= localStorage.getItem('token')
-  const headers = {access_token:token}
+  console.log("voteee", action);
+  const token = localStorage.getItem("token");
+  const headers = { access_token: token };
   try {
     const response = yield call(
       axiosCall,
       "post",
       `/do_vote?id=${action.payload.id}&option_text=${action.payload.text}`,
-       { },
-       headers
+      {},
+      headers
     );
     if (response) {
-      yield put(editTitleSuccess(response.data));
+      yield put(addVoteSuccess(response.data));
     }
   } catch (e) {
     console.log(e);
   }
 }
-
-
-
-
-
