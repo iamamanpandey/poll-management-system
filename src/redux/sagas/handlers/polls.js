@@ -1,7 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { showPollSuccess ,createPollSuccess,getPollById} from "../../actions";
-
+import { showPollSuccess, createPollSuccess, getPollById } from "../../actions";
 
 export function* handleCreatePoll(action) {
   try {
@@ -11,7 +10,7 @@ export function* handleCreatePoll(action) {
       "post",
       `/add_poll?title=${action.payload.title}&options=${action.payload.options.opt1}____${action.payload.options.opt2}____${action.payload.options.opt3}`
     );
-     if (response) {
+    if (response) {
       yield put(createPollSuccess(response.data, action.payload));
     }
   } catch (e) {
@@ -20,8 +19,6 @@ export function* handleCreatePoll(action) {
 }
 
 export function* handleShowPoll(action) {
-  console.log('action by id ',action)
-  
   try {
     const response = yield call(axiosCall, "get", `/list_polls`);
     if (response) {
@@ -32,14 +29,16 @@ export function* handleShowPoll(action) {
   }
 }
 
-export function* handlePollById(action) { 
-   try {
+export function* handlePollById(action) {
+  console.log("action by id ", action);
+
+  try {
     const response = yield call(
       axiosCall,
       "get",
-      `/list_poll?id=${action.payload.id}`
+      `/list_poll?id=${action.payload}`
     );
-    
+    console.log('responseeee', response.data)
     if (response) {
       yield put(getPollById(response.data, action.payload));
     }
