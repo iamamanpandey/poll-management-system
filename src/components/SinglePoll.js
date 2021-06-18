@@ -5,8 +5,6 @@ import {
   deletePollReq,
   deleteOptionReq,
   addVoteReq,
-  showPollSuccess,
-  getPollById,
 } from "../redux/actions";
 import { Link, useHistory } from "react-router-dom";
 
@@ -14,9 +12,6 @@ const SinglePost = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const poll = useSelector((state) => state.singlePoll.singlePoll);
-  const vote = useSelector((state) => state.vote);
-
-  console.log("vote", vote);
 
   useEffect(() => {
     dispatch(reqPollById(props.match.params.id));
@@ -27,7 +22,6 @@ const SinglePost = (props) => {
     if (answer) {
       dispatch(deletePollReq(id));
     }
-
     history.push("/admin/dashboard");
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
@@ -11,16 +11,12 @@ const Login = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   
-  const token = localStorage.getItem("token", token);
-  useEffect(() => {
-    if (token) history.push("/");
-  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, password };
     if (!name || !password) return alert("empty fields");
-    dispatch(loginRequest(data));
+    await dispatch(loginRequest(data));
     history.push("/admin/dashboard");
   };
   return (

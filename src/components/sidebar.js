@@ -9,6 +9,7 @@ export default function sidebar() {
         <Link class="active" to="/admin/dashboard">Home</Link>
         <Link to="/admin/userlist">users</Link>
         <Link to="/admin/create">Create</Link>
+        <Link to="/login" onClick={()=>localStorage.clear()}>LogOut</Link>
       </div>
     </div>
   );

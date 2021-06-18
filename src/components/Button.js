@@ -5,7 +5,7 @@ export default function Button(props) {
 
   return (
     <button
-      className="btn btn-primary"
+      className="btn btn-success"
       onClick={onClick}
       {...props}
       value={value}
