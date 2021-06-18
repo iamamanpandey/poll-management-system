@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { signupRequest } from "../redux/actions";
@@ -13,7 +13,13 @@ const Register = () => {
 
   let history = useHistory();
 
+  const token = localStorage.getItem("token", token);
 
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    }
+  }, [token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +27,7 @@ const Register = () => {
     const data = { name, password, role };
 
     dispatch(signupRequest(data));
-   
+
     history.push("/login");
   };
 

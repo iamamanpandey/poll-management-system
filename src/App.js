@@ -11,10 +11,7 @@ function App() {
 
   useEffect(() => {
     if (!token) {
-      history.push("/login");
-    } else {
-      history.push("/admin/dashboard");
-    }
+      history.push("/login")}
   }, [token]);
 
   return (
