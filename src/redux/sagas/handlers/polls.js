@@ -9,6 +9,8 @@ import {
   deleteOptionSuccess,
   editTitleSuccess,
   addVoteSuccess,
+  reqPollById,
+  showPollRequest,
 } from "../../actions";
 
 export function* handleCreatePoll(action) {
@@ -19,7 +21,8 @@ export function* handleCreatePoll(action) {
       `/add_poll?title=${action.payload.title}&options=${action.payload.options.opt1}____${action.payload.options.opt2}____${action.payload.options.opt3}____${action.payload.options.opt4}`
     );
     if (response) {
-      yield put(createPollSuccess(response.data, action.payload));
+      yield put(createPollSuccess(response.data,action.payload));
+      yield put(showPollRequest());
     }
   } catch (e) {
     console.log(e);
@@ -64,6 +67,7 @@ export function* handleDeletePoll(action) {
     console.log("response", response);
     if (response) {
       yield put(deletePollSuccess(response.data));
+      yield put(showPollRequest());
     }
   } catch (e) {
     console.log(e);
@@ -79,8 +83,7 @@ export function* handleDeleteOption(action) {
     );
     if (response) {
       yield put(deleteOptionSuccess(response.data));
-      yield call(getPollById());
-   
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -96,6 +99,7 @@ export function* handleAddOption(action) {
     );
     if (response) {
       yield put(addOptionSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -111,6 +115,7 @@ export function* handleEditTitle(action) {
     );
     if (response) {
       yield put(editTitleSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -131,6 +136,7 @@ export function* handleAddVote(action) {
     );
     if (response) {
       yield put(addVoteSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
