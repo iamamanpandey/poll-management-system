@@ -1,13 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reqPollById, deletePollReq, deleteOptionReq, addVoteReq } from "../redux/actions";
-import { Link } from "react-router-dom";
+import {
+  reqPollById,
+  deletePollReq,
+  deleteOptionReq,
+  addVoteReq,
+  showPollSuccess,
+  getPollById,
+} from "../redux/actions";
+import { Link, useHistory } from "react-router-dom";
 
 const SinglePost = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const poll = useSelector((state) => state.singlePoll.singlePoll);
+  const vote = useSelector((state) => state.vote);
 
-  const poll = useSelector((state) => state.poll.data);
-console.log("polll", poll)
+  console.log("vote", vote);
+
   useEffect(() => {
     dispatch(reqPollById(props.match.params.id));
   }, []);
@@ -17,13 +27,15 @@ console.log("polll", poll)
     if (answer) {
       dispatch(deletePollReq(id));
     }
+
+    history.push("/admin/dashboard");
   };
 
   return (
     <div>
       <div className="container pb-5">
         <br />
-        <h1>hello, singlepost{poll.error}</h1>
+        <h1>hello, singlepost</h1>
         {!poll.data ? (
           <p>Loadin....... </p>
         ) : (

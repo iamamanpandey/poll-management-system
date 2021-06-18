@@ -1,6 +1,17 @@
 import { call, put } from "redux-saga/effects";
 import { axiosCall } from "../requests/user";
-import { showPollSuccess, createPollSuccess, getPollById, deletePollSuccess, addOptionSuccess, deleteOptionSuccess,editTitleSuccess } from "../../actions";
+import {
+  showPollSuccess,
+  createPollSuccess,
+  getPollById,
+  deletePollSuccess,
+  addOptionSuccess,
+  deleteOptionSuccess,
+  editTitleSuccess,
+  addVoteSuccess,
+  reqPollById,
+  showPollRequest,
+} from "../../actions";
 
 export function* handleCreatePoll(action) {
   try {
@@ -10,7 +21,8 @@ export function* handleCreatePoll(action) {
       `/add_poll?title=${action.payload.title}&options=${action.payload.options.opt1}____${action.payload.options.opt2}____${action.payload.options.opt3}____${action.payload.options.opt4}`
     );
     if (response) {
-      yield put(createPollSuccess(response.data, action.payload));
+      yield put(createPollSuccess(response.data,action.payload));
+      yield put(showPollRequest());
     }
   } catch (e) {
     console.log(e);
@@ -52,8 +64,10 @@ export function* handleDeletePoll(action) {
       "delete",
       `/delete_poll?id=${action.payload}`
     );
+    console.log("response", response);
     if (response) {
       yield put(deletePollSuccess(response.data));
+      yield put(showPollRequest());
     }
   } catch (e) {
     console.log(e);
@@ -65,9 +79,11 @@ export function* handleDeleteOption(action) {
     const response = yield call(
       axiosCall,
       "delete",
-      `/delete_poll_option?id=${action.payload.id}&option_text=${action.payload.text}`);
+      `/delete_poll_option?id=${action.payload.id}&option_text=${action.payload.text}`
+    );
     if (response) {
       yield put(deleteOptionSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -83,6 +99,7 @@ export function* handleAddOption(action) {
     );
     if (response) {
       yield put(addOptionSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -98,6 +115,7 @@ export function* handleEditTitle(action) {
     );
     if (response) {
       yield put(editTitleSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
@@ -105,26 +123,22 @@ export function* handleEditTitle(action) {
 }
 
 export function* handleAddVote(action) {
-  console.log("voteee", action)
-  const token= localStorage.getItem('token')
-  const headers = {access_token:token}
+  console.log("voteee", action);
+  const token = localStorage.getItem("token");
+  const headers = { access_token: token };
   try {
     const response = yield call(
       axiosCall,
       "post",
       `/do_vote?id=${action.payload.id}&option_text=${action.payload.text}`,
-       { },
-       headers
+      {},
+      headers
     );
     if (response) {
-      yield put(editTitleSuccess(response.data));
+      yield put(addVoteSuccess(response.data));
+      yield put(reqPollById(action.payload.id));
     }
   } catch (e) {
     console.log(e);
   }
 }
-
-
-
-
-

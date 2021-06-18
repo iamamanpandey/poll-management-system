@@ -3,14 +3,16 @@ import createSagaMiddleware from "redux-saga";
 import userReducer from "./ducks/user";
 import { watcherSaga } from "./sagas/rootSaga";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import userList from "./ducks/userList";
 import pollreducer from "./ducks/polls";
+import singlePollReducer from "./ducks/singlePoll";
+import voteReducer from "./ducks/vote";
 
 
 const reducer = combineReducers({
   user: userReducer,
   poll:pollreducer,
-  userList:userList
+  singlePoll:singlePollReducer,
+  vote:voteReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
