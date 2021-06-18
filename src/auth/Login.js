@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
@@ -11,11 +11,6 @@ const Login = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   
-  const token = localStorage.getItem("token", token);
-  
-  useEffect(() => {
-    if (token) history.push("/admin/dashboard");
-  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -21,7 +21,8 @@ const UserList = () => {
     <div>
       <Sidebar />
       <div className="mx-auto  w-75">
-        <h1 style={{ marginLeft: "20%" }}> </h1>
+      <h1 className="text-center mb-4">All Polls </h1>
+
         <table class="table w-75" style={{ marginLeft: "20%" }}>
           <thead>
             <tr>

@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 
 function App() {
   const token = localStorage.getItem("token", token);
+  
   let history = useHistory();
 
   useEffect(() => {

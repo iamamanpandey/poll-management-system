@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { reqPollById, showPollRequest } from "../redux/actions";
+import {  showPollRequest } from "../redux/actions";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -16,7 +16,7 @@ const Dashboard = () => {
   return (
     <div>
       <Sidebar />
-      <h1 style={{ marginLeft: "20%" }}>Hello,polls </h1>
+      <h1 className="text-center">All Polls </h1>
 
       <div class="d-flex justify-content-center row w-50 mx-auto">
         <div class="col-md-10 col-lg-10">
