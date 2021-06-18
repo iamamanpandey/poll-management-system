@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 const Loading = () => {
-  const [count, setcount] = useState(3);
+  const [count, setcount] = useState(5);
   let history = useHistory();
 
   useEffect(() => {

@@ -9,7 +9,11 @@ function App() {
   let history = useHistory();
 
   useEffect(() => {
-    if (!token) history.push("/login");
+    if (!token) {
+      history.push("/login");
+    } else {
+      history.push("/admin/dashboard");
+    }
   }, [token]);
 
   return (

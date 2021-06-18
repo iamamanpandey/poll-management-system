@@ -12,15 +12,16 @@ const Login = () => {
   let history = useHistory();
   
   const token = localStorage.getItem("token", token);
+  
   useEffect(() => {
-    if (token) history.push("/");
+    if (token) history.push("/admin/dashboard");
   }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, password };
     if (!name || !password) return alert("empty fields");
-    dispatch(loginRequest(data));
+    await dispatch(loginRequest(data));
     history.push("/admin/dashboard");
   };
   return (

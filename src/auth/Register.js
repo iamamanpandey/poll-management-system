@@ -15,8 +15,9 @@ const Register = () => {
 
   
   const token = localStorage.getItem('token', token)
+
   useEffect(() => {
-    if (token) history.push("/");
+    if (token) history.push("/admin/dashboard");
   }, [token]);
 
   const handleSubmit = (e) => {
