@@ -18,13 +18,12 @@ function Routes() {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+        <AdminRoute exact path="/" component={Dashboard} />
         <AdminRoute exact path="/admin/userlist" component={UserList} />
         <AdminRoute exact path="/admin/create" component={Create} />
         <AdminRoute exact path="/admin/polls/:id" component={SinglePost} />
         <AdminRoute exact path="/admin/addoption/:id" component={Option} />
         <AdminRoute exact path="/admin/polls/edittitle/:id" component={UpdateTitle} />
-
       </Switch>
     </div>
   );
