@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 
 const SinglePost = (props) => {
   const [loading, setloading] = useState(false);
+  const [title, settitle] = useState(false)
+
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,6 +22,9 @@ const SinglePost = (props) => {
     dispatch(reqPollById(props.match.params.id));
   }, []);
 
+  const edittitle=()=>{
+    
+  }
   const addVote = ({ id, text }) => {
     setloading(true);
     dispatch(addVoteReq({ id, text }));
