@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { showPollRequest ,deletePollReq} from "../redux/actions";
+import { showPollRequest, deletePollReq } from "../redux/actions";
 import { Link } from "react-router-dom";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-
   const poll = useSelector((state) => state.poll.data);
-
-  const notify = () => toast.success("Poll has been deleted!");
 
   useEffect(() => {
     dispatch(showPollRequest());
@@ -21,7 +18,7 @@ const Dashboard = () => {
     if (answer) {
       dispatch(deletePollReq(id));
     }
-    notify()
+    toast.success("Poll has been deleted!");
   };
 
   return (
@@ -32,9 +29,9 @@ const Dashboard = () => {
       <div class="d-flex justify-content-center row w-50 mx-auto">
         <div class="col-md-10 col-lg-10">
           {!poll.data ? (
-             <div className="text-center my-4">
-             <span class="spinner-border spinner-border-lg mx-auto"></span>
-             </div>
+            <div className="text-center my-4">
+              <span class="spinner-border spinner-border-lg mx-auto"></span>
+            </div>
           ) : (
             poll.data.map((user) => (
               <div class="border m-4 shadow">
@@ -56,7 +53,7 @@ const Dashboard = () => {
                       class="btn btn-primary border-success align-items-center btn-success"
                       type="button"
                     >
-                     View Poll <i class="fa fa-angle-right ml-2"></i>
+                      View Poll <i class="fa fa-angle-right ml-2"></i>
                     </button>
                   </Link>
                   <button
@@ -75,5 +72,4 @@ const Dashboard = () => {
     </div>
   );
 };
-
 export default Dashboard;

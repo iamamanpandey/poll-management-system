@@ -19,13 +19,24 @@ const Create = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { title, options };
-    if (!title || !options.opt1|| !options.opt2|| !options.opt3|| !options.opt4) return alert("empty fields");
-    if (options.opt1=== options.opt2 ||options.opt1===options.opt3||options.opt1===options.opt4 ||
-      options.opt2 ===options.opt3 ||  options.opt2 ===options.opt4 ||options.opt3===options.opt4
-      ) return alert("options value are");
+    if (
+      !title ||
+      !options.opt1 ||
+      !options.opt2 ||
+      !options.opt3 ||
+      !options.opt4
+    )
+      return alert("empty fields");
+    if (
+      options.opt1 === options.opt2 ||
+      options.opt1 === options.opt3 ||
+      options.opt1 === options.opt4 ||
+      options.opt2 === options.opt3 ||
+      options.opt2 === options.opt4 ||
+      options.opt3 === options.opt4
+    )
+      return alert("options value are");
 
-
-    console.log("data", data);
     dispatch(createPollRequest(data));
     settitle(" ");
     history.push("/");
@@ -34,7 +45,6 @@ const Create = () => {
   return (
     <div>
       <Sidebar />
-
       <h1 className="text-center ">Create Poll</h1>
       <div class="container mt-5 ">
         <div className="w-50 mx-auto shadow p-4 border">
