@@ -20,6 +20,10 @@ const Create = () => {
     e.preventDefault();
     const data = { title, options };
     if (!title || !options.opt1|| !options.opt2|| !options.opt3|| !options.opt4) return alert("empty fields");
+    if (options.opt1=== options.opt2 ||options.opt1===options.opt3||options.opt1===options.opt4 ||
+      options.opt2 ===options.opt3 ||  options.opt2 ===options.opt4 ||options.opt3===options.opt4
+      ) return alert("options value are");
+
 
     console.log("data", data);
     dispatch(createPollRequest(data));

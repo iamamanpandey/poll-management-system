@@ -1,17 +1,28 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import {  showPollRequest } from "../redux/actions";
+import { showPollRequest ,deletePollReq} from "../redux/actions";
 import { Link } from "react-router-dom";
+import {  toast } from 'react-toastify';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
   const poll = useSelector((state) => state.poll.data);
 
+  const notify = () => toast.success("Poll has been deleted!");
+
   useEffect(() => {
     dispatch(showPollRequest());
   }, [dispatch]);
+
+  const deleteConfirm = (id) => {
+    let answer = window.confirm("Are  you sure want to delete this poll");
+    if (answer) {
+      dispatch(deletePollReq(id));
+    }
+    notify()
+  };
 
   return (
     <div>
@@ -29,13 +40,13 @@ const Dashboard = () => {
                   <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom mb-4">
                     <h5 class="mt-1 ml-2">{user.title}</h5>
                   </div>
-                   {user.options.map((item)=>(
-                  <div class="text-center">
-                   <label class="btn btn-outline-success w-50 ">
-                      {item.option}
-                    </label>
-                  </div>
-                    ))}
+                  {user.options.map((item) => (
+                    <div class="text-center">
+                      <label class="btn btn-outline-success w-50 ">
+                        {item.option}
+                      </label>
+                    </div>
+                  ))}
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
                   <Link to={`/admin/polls/${user._id}`}>
@@ -43,9 +54,16 @@ const Dashboard = () => {
                       class="btn btn-primary border-success align-items-center btn-success"
                       type="button"
                     >
-                      SEE MORE <i class="fa fa-angle-right ml-2"></i>
+                     View Poll <i class="fa fa-angle-right ml-2"></i>
                     </button>
                   </Link>
+                  <button
+                    class="btn btn-primary d-flex align-items-center btn-danger"
+                    type="button"
+                    onClick={() => deleteConfirm(user._id)}
+                  >
+                    <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Delete
+                  </button>
                 </div>
               </div>
             ))
