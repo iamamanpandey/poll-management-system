@@ -24,7 +24,7 @@ const Create = () => {
     console.log("data", data);
     dispatch(createPollRequest(data));
     settitle(" ");
-    history.push("/admin/dashboard");
+    history.push("/");
   };
 
   return (

@@ -18,18 +18,18 @@ const SinglePost = (props) => {
   }, []);
 
   const deleteConfirm = (id) => {
-    let answer = window.confirm("Are  you sure want to delete the post");
+    let answer = window.confirm("Are  you sure want to delete this poll");
     if (answer) {
       dispatch(deletePollReq(id));
     }
-    history.push("/admin/dashboard");
+    history.push("/");
   };
 
   return (
     <div>
       <div className="container pb-5">
         <br />
-        <h1>hello, singlepost</h1>
+        <h1 className="text-center">Poll Details</h1>
         {!poll.data ? (
           <p>Loadin....... </p>
         ) : (
@@ -99,7 +99,6 @@ const SinglePost = (props) => {
                 <button
                   class="btn btn-primary border-success align-items-center btn-success"
                   type="button"
-                  onClick={() => dispatch(reqPollById(poll.data._id))}
                 >
                   add option <i class="fa fa-angle-right ml-2"></i>
                 </button>
