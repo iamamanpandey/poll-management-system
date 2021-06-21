@@ -10,9 +10,8 @@ const Loading = () => {
     const interval = setInterval(() => {
       setcount((count) => --count);
     },1000);
-
     //redirect once count is equal to zero
-    count === 0 && history.push("/admin/dashboard");
+    count === 0 && history.push("/");
     return () => clearInterval(interval);
   }, [count]);
   return (
