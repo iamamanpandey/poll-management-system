@@ -32,7 +32,9 @@ const Dashboard = () => {
       <div class="d-flex justify-content-center row w-50 mx-auto">
         <div class="col-md-10 col-lg-10">
           {!poll.data ? (
-            <h3>Loading.....</h3>
+             <div className="text-center my-4">
+             <span class="spinner-border spinner-border-lg mx-auto"></span>
+             </div>
           ) : (
             poll.data.map((user) => (
               <div class="border m-4 shadow">
