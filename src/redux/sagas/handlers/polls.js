@@ -107,11 +107,12 @@ export function* handleAddOption(action) {
 }
 
 export function* handleEditTitle(action) {
+  console.log(action.payload)
   try {
     const response = yield call(
       axiosCall,
       "put",
-      `/update_poll_title?id=${action.payload.id}&title=${action.payload.value}`
+      `/update_poll_title?id=${action.payload.id}&title=${action.payload.text}`
     );
     if (response) {
       yield put(editTitleSuccess(response.data));

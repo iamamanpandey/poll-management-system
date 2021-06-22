@@ -35,7 +35,7 @@ const Create = () => {
       options.opt2 === options.opt4 ||
       options.opt3 === options.opt4
     )
-      return alert("options value are");
+      return alert("options value are same");
 
     dispatch(createPollRequest(data));
     settitle(" ");

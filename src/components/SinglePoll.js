@@ -5,15 +5,17 @@ import {
   deletePollReq,
   deleteOptionReq,
   addVoteReq,
+  editTitleReq,
+  addOptionReq
 } from "../redux/actions";
-import { Link, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SinglePost = (props) => {
   const [loading, setloading] = useState(false);
-  const [title, settitle] = useState(false)
-
-
+  const [title, settitle] = useState(false);
+  const [text, settext] = useState(" ");
+  const [options, setoptions] = useState({ value: " ", status: false });
   const dispatch = useDispatch();
   const history = useHistory();
   const poll = useSelector((state) => state.singlePoll.singlePoll);
@@ -22,9 +24,19 @@ const SinglePost = (props) => {
     dispatch(reqPollById(props.match.params.id));
   }, []);
 
-  const edittitle=()=>{
-    
-  }
+  const edittitle = () => {
+    settitle(true);
+    settext(poll.data.title);
+  };
+
+  const handleUpdateTitle = (e) => {
+    e.preventDefault();
+    const id = props.match.params.id;
+    const data = { id, text };
+    dispatch(editTitleReq(data));
+    settitle(false);
+  };
+
   const addVote = ({ id, text }) => {
     setloading(true);
     dispatch(addVoteReq({ id, text }));
@@ -41,6 +53,18 @@ const SinglePost = (props) => {
     history.push("/");
   };
 
+
+  const handleAddOption = (e) => {
+    e.preventDefault();
+    const id = props.match.params.id;
+    const {value} = options
+    const data = { id, value };
+
+    dispatch(addOptionReq(data));
+    setoptions({status:false})
+   toast.success("new Option has been added!!")
+  };
+
   return (
     <div>
       <div className="container pb-5">
@@ -48,18 +72,31 @@ const SinglePost = (props) => {
         <h1 className="text-center">Poll Details</h1>
         {!poll.data ? (
           <div className="text-center my-4">
-         <span class="spinner-border spinner-border-lg mx-auto"></span>
-         </div>
+            <span class="spinner-border spinner-border-lg mx-auto"></span>
+          </div>
         ) : (
           <div class="border m-4 shadow">
             <div class="question bg-white p-3 ">
               <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom">
-                <h5 class="mt-1 ml-2">{poll.data.title}</h5>
-                <Link to={`/admin/polls/edittitle/${poll.data._id}`}>
+                {!title ? (
+                  <h5 class="mt-1 ml-2">{poll.data.title}</h5>
+                ) : (
+                  <div className="w-100">
+                  <form onSubmit={handleUpdateTitle}>
+                    <input
+                      type="text"
+                      class="form-control"
+                      value={text}
+                      onChange={(e) => settext(e.target.value)}
+                    />
+                  </form>
+                </div>
+                )}
+                {!title ? (
                   <button
                     class="btn btn-link border-success align-items-center"
                     type="button"
-                    onClick={() => dispatch(reqPollById(poll.data._id))}
+                    onClick={edittitle}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +113,7 @@ const SinglePost = (props) => {
                       />
                     </svg>
                   </button>
-                </Link>
+                ) : null}
               </div>
             </div>
             {poll.data.options.map((option) => (
@@ -103,16 +140,15 @@ const SinglePost = (props) => {
 
                     <button
                       className="btn btn-link"
-                      onClick={() =>{
+                      onClick={() => {
                         dispatch(
                           deleteOptionReq({
                             id: poll.data._id,
                             text: option.option,
-                          }),
-                          )
-                          toast.success("option deleted!!")
-                        }
-                      }
+                          })
+                        );
+                        toast.success("option deleted!!");
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -154,11 +190,28 @@ const SinglePost = (props) => {
                   />
                 </svg>
               </button>
-              <Link to={`/admin/addoption/${poll.data._id}`}>
+              {options.status === true ? (
+                <div className="w-25">
+                  <form onSubmit={handleAddOption}>
+                    <input
+                      type="text"
+                      class="form-control"
+                      value={options.value}
+                      onChange={(e) => setoptions({...options,value:e.target.value})}
+                    />
+                    <button
+                    class="btn btn-link border-success align-items-center"
+                    type="button"
+                    onClick={()=>setoptions({status:false})}
+                  >cancel</button>
+                  </form>
+                </div>
+              ) : (
                 <button
                   class="btn btn-link border-success align-items-center "
                   type="button"
-                >
+                  onClick={()=>setoptions({status:true})}
+                   >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -170,7 +223,7 @@ const SinglePost = (props) => {
                     <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
                   </svg>
                 </button>
-              </Link>
+              )}
             </div>
           </div>
         )}
