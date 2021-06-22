@@ -112,9 +112,8 @@ export const deleteOptionReq = (payload) => ({
 
 export const deleteOptionSuccess = (payload) => ({
   type: DELETE_OPTION_SUCCESS,
-  payload
+  payload,
 });
-
 
 //edit title to poll
 export const editTitleReq = (payload) => ({
@@ -124,9 +123,8 @@ export const editTitleReq = (payload) => ({
 
 export const editTitleSuccess = (payload) => ({
   type: EDIT_TITLE_SUCCESS,
-  payload
+  payload,
 });
-
 
 //add vote
 export const addVoteReq = (payload) => ({
@@ -136,5 +134,5 @@ export const addVoteReq = (payload) => ({
 
 export const addVoteSuccess = (payload) => ({
   type: ADD_VOTE_SUCCESS,
-  payload
+  payload,
 });

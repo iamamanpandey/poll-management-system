@@ -35,7 +35,7 @@ const UserList = () => {
           <tbody>
             {!users ? (
               <div className="text-center mx-auto">
-              <span class="spinner-border spinner-border-lg mx-auto"></span>
+                <span class="spinner-border spinner-border-lg mx-auto"></span>
               </div>
             ) : (
               users.data.map((user) => {
