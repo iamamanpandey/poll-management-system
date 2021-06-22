@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const poll = useSelector((state) => state.poll.data);
 
+  const poll = useSelector((state) => state.poll);
   useEffect(() => {
     dispatch(showPollRequest());
   }, [dispatch]);
@@ -28,12 +28,12 @@ const Dashboard = () => {
 
       <div class="d-flex justify-content-center row w-50 mx-auto">
         <div class="col-md-10 col-lg-10">
-          {!poll.data ? (
+          {!poll.data.data ? (
             <div className="text-center my-4">
               <span class="spinner-border spinner-border-lg mx-auto"></span>
             </div>
           ) : (
-            poll.data.map((user) => (
+            poll.data.data.map((user) => (
               <div class="border m-4 shadow" key={user._id}>
                 <div class="question bg-white p-3 ">
                   <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom mb-4">

@@ -6,9 +6,9 @@ import {
   deleteOptionReq,
   addVoteReq,
   editTitleReq,
-  addOptionReq
+  addOptionReq,
 } from "../redux/actions";
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SinglePost = (props) => {
@@ -53,16 +53,15 @@ const SinglePost = (props) => {
     history.push("/");
   };
 
-
   const handleAddOption = (e) => {
     e.preventDefault();
     const id = props.match.params.id;
-    const {value} = options
+    const { value } = options;
     const data = { id, value };
 
     dispatch(addOptionReq(data));
-    setoptions({status:false})
-   toast.success("new Option has been added!!")
+    setoptions({ status: false });
+    toast.success("new Option has been added!!");
   };
 
   return (
@@ -82,15 +81,15 @@ const SinglePost = (props) => {
                   <h5 class="mt-1 ml-2">{poll.data.title}</h5>
                 ) : (
                   <div className="w-100">
-                  <form onSubmit={handleUpdateTitle}>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value={text}
-                      onChange={(e) => settext(e.target.value)}
-                    />
-                  </form>
-                </div>
+                    <form onSubmit={handleUpdateTitle}>
+                      <input
+                        type="text"
+                        class="form-control"
+                        value={text}
+                        onChange={(e) => settext(e.target.value)}
+                      />
+                    </form>
+                  </div>
                 )}
                 {!title ? (
                   <button
@@ -116,7 +115,7 @@ const SinglePost = (props) => {
                 ) : null}
               </div>
             </div>
-            {poll.data.options.map((option,i) => (
+            {poll.data.options.map((option, i) => (
               <div className=" text-center" key={i}>
                 <label class="btn btn-outline-success w-50 ">
                   {option.option}
@@ -197,21 +196,25 @@ const SinglePost = (props) => {
                       type="text"
                       class="form-control"
                       value={options.value}
-                      onChange={(e) => setoptions({...options,value:e.target.value})}
+                      onChange={(e) =>
+                        setoptions({ ...options, value: e.target.value })
+                      }
                     />
                     <button
-                    class="btn btn-link border-success align-items-center"
-                    type="button"
-                    onClick={()=>setoptions({status:false})}
-                  >cancel</button>
+                      class="btn btn-link border-success align-items-center"
+                      type="button"
+                      onClick={() => setoptions({ status: false })}
+                    >
+                      cancel
+                    </button>
                   </form>
                 </div>
               ) : (
                 <button
                   class="btn btn-link border-success align-items-center "
                   type="button"
-                  onClick={()=>setoptions({status:true})}
-                   >
+                  onClick={() => setoptions({ status: true })}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
