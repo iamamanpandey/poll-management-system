@@ -6,8 +6,7 @@ const Nav = () => {
     <div className="mb-4">
       <nav class="navbar navbar-expand-lg navbar-light border ">
         <div className="d-flex mx-auto">
-         
-          <Link class="nav-item nav-link" to="/login" >
+          <Link class="nav-item nav-link" to="/login">
             Login
           </Link>
           <Link class="nav-item nav-link" to="/register">

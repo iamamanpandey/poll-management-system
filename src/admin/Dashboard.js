@@ -33,14 +33,14 @@ const Dashboard = () => {
               <span class="spinner-border spinner-border-lg mx-auto"></span>
             </div>
           ) : (
-            poll.data.map((user) =>(
-              <div class="border m-4 shadow">
+            poll.data.map((user) => (
+              <div class="border m-4 shadow" key={user._id}>
                 <div class="question bg-white p-3 ">
                   <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom mb-4">
                     <h5 class="mt-1 ml-2">{user.title}</h5>
                   </div>
-                  {user.options.map((item) => (
-                    <div class="text-center">
+                  {user.options.map((item, i) => (
+                    <div class="text-center" key={i}>
                       <label class="btn btn-outline-success w-50 ">
                         {item.option}
                       </label>

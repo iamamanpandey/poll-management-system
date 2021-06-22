@@ -116,8 +116,8 @@ const SinglePost = (props) => {
                 ) : null}
               </div>
             </div>
-            {poll.data.options.map((option) => (
-              <div className=" text-center">
+            {poll.data.options.map((option,i) => (
+              <div className=" text-center" key={i}>
                 <label class="btn btn-outline-success w-50 ">
                   {option.option}
                   <div className="float-right ">
