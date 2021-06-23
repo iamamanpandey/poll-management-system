@@ -25,7 +25,10 @@ const Dashboard = () => {
     <div>
       <Sidebar />
       <h1 className="text-center">All Polls </h1>
-
+      { poll.isloadingPoll==true ?
+        <div className="text-center my-4">
+              <span class="spinner-border spinner-border-lg mx-auto"></span>
+            </div> :
       <div class="d-flex justify-content-center row w-50 mx-auto">
         <div class="col-md-10 col-lg-10">
           {!poll.data.data ? (
@@ -56,6 +59,7 @@ const Dashboard = () => {
                       View Poll <i class="fa fa-angle-right ml-2"></i>
                     </button>
                   </Link>
+                  
                   <button
                     onClick={() => deleteConfirm(user._id)}
                     class="btn btn-link "
@@ -82,6 +86,7 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+                  }
     </div>
   );
 };

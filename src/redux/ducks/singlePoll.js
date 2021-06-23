@@ -5,14 +5,16 @@ import {
   DELETE_POLL_SUCCESS,
   EDIT_TITLE_SUCCESS,
   DELETE_POLL_REQ,
-  DELETE_POLL_ERROR
+  EDIT_TITLE_REQ,
+  DELETE_OPTION_REQ,
+  ADD_OPTION_REQ,
 } from "../constants/actionTypes";
 
 const initialState = {
   singlePoll: [],
-  isloadingDelete:false,
-  isSuccessDelete:false,
-  isErrorDelete:false
+  isloadingDeleteOption: false,
+  isloadingAddOption: false,
+  isloadingtitle: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -23,20 +25,25 @@ export default (state = initialState, action) => {
     case DELETE_POLL_SUCCESS:
       return { ...state, singlePoll: action.payload };
 
-      case DELETE_POLL_REQ:
-        return { ...state, isloadingDelete:true};
-  
-      case DELETE_POLL_ERROR:
-          return { ...state,isloadingDelete:false };
-      
-    case ADD_OPTION_SUCCESS:
-      return { ...state,isloadingDelete:false };
-
-    case DELETE_OPTION_SUCCESS:
+    case DELETE_POLL_REQ:
       return { ...state };
 
+    case ADD_OPTION_REQ:
+      return { ...state, isloadingAddOption: true };
+
+    case ADD_OPTION_SUCCESS:
+      return { ...state, isloadingAddOption: false };
+
+    case DELETE_OPTION_REQ:
+      return { ...state, isloadingDeleteOption: true };
+
+    case DELETE_OPTION_SUCCESS:
+      return { ...state, isloadingDeleteOption: false };
+
+    case EDIT_TITLE_REQ:
+      return { ...state, isloadingtitle: true };
     case EDIT_TITLE_SUCCESS:
-      return { ...state, data: action.payload };
+      return { ...state, data: action.payload, isloadingtitle: false };
     default:
       return state;
   }

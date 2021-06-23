@@ -18,7 +18,7 @@ const SinglePost = (props) => {
   const [options, setoptions] = useState({ value: " ", status: false });
   const dispatch = useDispatch();
   const history = useHistory();
-  const poll = useSelector((state) => state.singlePoll.singlePoll);
+  const poll = useSelector((state) => state.singlePoll);
 
   useEffect(() => {
     dispatch(reqPollById(props.match.params.id));
@@ -26,7 +26,7 @@ const SinglePost = (props) => {
 
   const edittitle = () => {
     settitle(true);
-    settext(poll.data.title);
+    settext(poll.singlePoll.data.title);
   };
 
   const handleUpdateTitle = (e) => {
@@ -63,13 +63,13 @@ const SinglePost = (props) => {
     setoptions({ status: false });
     toast.success("new Option has been added!!");
   };
-
+  
   return (
     <div>
       <div className="container pb-5">
         <br />
         <h1 className="text-center">Poll Details</h1>
-        {!poll.data ? (
+        {!poll.singlePoll.data ? (
           <div className="text-center my-4">
             <span class="spinner-border spinner-border-lg mx-auto"></span>
           </div>
@@ -78,7 +78,10 @@ const SinglePost = (props) => {
             <div class="question bg-white p-3 ">
               <div class="d-flex flex-row justify-content-between align-items-center question-title  border-bottom">
                 {!title ? (
-                  <h5 class="mt-1 ml-2">{poll.data.title}</h5>
+                  <h5 class="mt-1 ml-2">
+                  {poll.isloadingtitle===true ? <span class="spinner-border spinner-border-lg mx-auto"></span>:
+                  
+                  <p>{poll.singlePoll.data.title}</p>}</h5>
                 ) : (
                   <div className="w-100">
                     <form onSubmit={handleUpdateTitle}>
@@ -114,10 +117,12 @@ const SinglePost = (props) => {
                   </button>
                 ) : null}
               </div>
-            </div>
-            {poll.data.options.map((option, i) => (
+            </div>   
+            
+            {poll.singlePoll.data.options.map((option, i) => (
               <div className=" text-center" key={i}>
-                <label class="btn btn-outline-success w-50 ">
+              {poll.isloadingDeleteOption===true ? <span class="spinner-border spinner-border-sm "></span>:  
+             <label class="btn btn-outline-success w-50 ">
                   {option.option}
                   <div className="float-right ">
                     <button
@@ -125,7 +130,7 @@ const SinglePost = (props) => {
                       type="button"
                       onClick={() =>
                         addVote({
-                          id: poll.data._id,
+                          id: poll.singlePoll.data._id,
                           text: option.option,
                         })
                       }
@@ -137,12 +142,13 @@ const SinglePost = (props) => {
                       {!loading && <span>vote-{option.vote}</span>}
                     </button>
 
+                    
                     <button
                       className="btn btn-link"
                       onClick={() => {
                         dispatch(
                           deleteOptionReq({
-                            id: poll.data._id,
+                            id: poll.singlePoll.data._id,
                             text: option.option,
                           })
                         );
@@ -164,15 +170,18 @@ const SinglePost = (props) => {
                         />
                       </svg>
                     </button>
-                  </div>
-                </label>
+                    </div>
+                    </label>
+                  }
+                    
               </div>
             ))}
+      
             <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
               <button
                 class="btn btn-link "
                 type="button"
-                onClick={() => deleteConfirm(poll.data._id)}
+                onClick={() => deleteConfirm(poll.singlePoll.data._id)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -210,11 +219,14 @@ const SinglePost = (props) => {
                   </form>
                 </div>
               ) : (
+
                 <button
                   class="btn btn-link border-success align-items-center "
                   type="button"
                   onClick={() => setoptions({ status: true })}
                 >
+                {poll.isloadingAddOption===true ?  <span class="spinner-border spinner-border-lg mx-auto"></span> : 
+
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -225,6 +237,7 @@ const SinglePost = (props) => {
                   >
                     <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
                   </svg>
+              }
                 </button>
               )}
             </div>
