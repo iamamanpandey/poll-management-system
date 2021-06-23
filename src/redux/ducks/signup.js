@@ -1,7 +1,7 @@
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS } from "../constants/actionTypes";
+import {  SIGNUP_ERROR, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../constants/actionTypes";
 
 const initialState = {
-  user: { },
+  userSignup: {},
   isloading:false,
   isSuccess:false,
   isError:false
@@ -12,12 +12,12 @@ const initialState = {
 export default (state = initialState, action) => {
   const data = {...action.payload};
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case SIGNUP_REQUEST:
       return { ...state, isloading: true,  isSuccess:false, isError:false};
-    case LOGIN_SUCCESS:
+    case SIGNUP_SUCCESS:
       return { ...state,user:data, isloading: false,isSuccess:true ,isError:false};
-      case LOGIN_ERROR:
-      return { ...state,userStatus:data.data, isloading: false,  isSuccess:false, isError:true};
+      case SIGNUP_ERROR:
+      return { ...state, userStatus:data, isloading: false,  isSuccess:false, isError:true};
     default:
       return state;
   }
