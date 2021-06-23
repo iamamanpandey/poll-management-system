@@ -19,20 +19,18 @@ const {
   isSuccess,
   isloading,
   isError,
-  user = {},
   userStatus = "",
 } = useSelector((state) => state.signupUser);
 
   useEffect(() => {
-    if (user.error === 0){
+    if (isSuccess && !isError){
       history.push("/login");
+      dispatch(dispatch({ type: 'SIGNUP_DEFAULT' }))
     }else if(isError){
       alert(userStatus.message)
+      dispatch(dispatch({ type: 'SIGNUP_DEFAULT' }))
     }
-    setName("")
-    setPassword("")
-    setPassword("")
-  },[user.error,isSuccess] );
+  },[isError,isSuccess] );
 
   const handleSubmit = (e) => {
     e.preventDefault();

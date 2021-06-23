@@ -6,6 +6,11 @@ export const LOGOUT = "LOGOUT";
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_DEFAULT = "SIGNUP_DEFAULT";
+
+
+
+
 
 export const CREATE_POLL_REQUEST = "CREATE_POLL_REQUEST";
 export const CREATE_POLL_ERROR = "CREATE_POLL_ERROR";

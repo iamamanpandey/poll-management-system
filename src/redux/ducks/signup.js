@@ -1,4 +1,4 @@
-import {  SIGNUP_ERROR, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../constants/actionTypes";
+import {  SIGNUP_ERROR, SIGNUP_REQUEST, SIGNUP_SUCCESS,SIGNUP_DEFAULT } from "../constants/actionTypes";
 
 const initialState = {
   userSignup: {},
@@ -15,9 +15,14 @@ export default (state = initialState, action) => {
     case SIGNUP_REQUEST:
       return { ...state, isloading: true,  isSuccess:false, isError:false};
     case SIGNUP_SUCCESS:
-      return { ...state,user:data, isloading: false,isSuccess:true ,isError:false};
+      return { ...state,user:data, isloading:false, isSuccess:true ,isError:false};
+      break;
       case SIGNUP_ERROR:
       return { ...state, userStatus:data, isloading: false,  isSuccess:false, isError:true};
+      break;
+      case SIGNUP_DEFAULT:
+      return { ...state,  isloading: false,  isSuccess:false, isError:false};
+      break;
     default:
       return state;
   }
