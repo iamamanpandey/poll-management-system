@@ -35,7 +35,7 @@ const UserList = () => {
         setusers(res.data);
       })
       .catch(function (error) {
-       toast.error(`${error.message}`)
+        toast.error(`${error.message}`);
       });
   }, []);
 
@@ -44,7 +44,6 @@ const UserList = () => {
     setPage(0);
   };
 
- 
   return (
     <div>
       <Sidebar />
@@ -77,7 +76,6 @@ const UserList = () => {
                       <TableCell>{user.role}</TableCell>
                     </TableRow>
                   ))}
-                  
             </TableBody>
           </Table>
           <TablePagination

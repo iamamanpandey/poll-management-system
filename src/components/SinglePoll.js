@@ -19,20 +19,16 @@ import {
   Card,
   Typography,
   Button,
-  ButtonGroup
 } from "@material-ui/core";
 
 import ListItemText from "@material-ui/core/ListItemText";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import Skeleton from "@material-ui/lab/Skeleton";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const SinglePost = (props) => {
   const [title, settitle] = useState(false);
@@ -48,7 +44,6 @@ const SinglePost = (props) => {
 
   const edittitle = () => {
     settitle(true);
-
     settext(poll.singlePoll.data.title);
   };
 
@@ -70,8 +65,8 @@ const SinglePost = (props) => {
     let answer = window.confirm("Are  you sure want to delete this poll");
     if (answer) {
       dispatch(deletePollReq(id));
+      history.push("/");
     }
-    history.push("/");
   };
 
   const handleAddOption = (e) => {
@@ -79,7 +74,6 @@ const SinglePost = (props) => {
     const id = props.match.params.id;
     const { value } = options;
     const data = { id, value };
-
     dispatch(addOptionReq(data));
     setoptions({ status: false });
     toast.success(`new Option ${value} has been added!`);
@@ -89,7 +83,7 @@ const SinglePost = (props) => {
     <div>
       {poll.isloadingSinglePoll === true ? (
         <div className="text-center my-4">
-        <LinearProgress color="secondary" />
+          <LinearProgress color="secondary" />
         </div>
       ) : (
         <div className="container pb-5 ">
@@ -97,7 +91,7 @@ const SinglePost = (props) => {
           <h1 className="text-center">Poll Details</h1>
           {!poll.singlePoll.data ? (
             <Grid container spacing={2}>
-            <LinearProgress color="secondary" />
+              <LinearProgress color="secondary" />
             </Grid>
           ) : (
             <Grid container spacing={2}>
@@ -129,7 +123,7 @@ const SinglePost = (props) => {
                         {poll.singlePoll.data.options.map((item, i) => (
                           <container>
                             <ListItem key={i} alignItems="flex-start">
-                              <ListItemText>
+                              <ListItemText variant="h1">
                                 {i + 1} - {item.option}
                               </ListItemText>
                               <Button
@@ -142,9 +136,11 @@ const SinglePost = (props) => {
                                   })
                                 }
                               >
+                                {" "}
                                 vote - {item.vote}
                               </Button>
-                              <IconButton style={{marginTop:'-1%'}}
+                              <IconButton
+                                style={{ marginTop: "-1%" }}
                                 color="secondary"
                                 onClick={() => {
                                   dispatch(
@@ -201,8 +197,6 @@ const SinglePost = (props) => {
                           <AddIcon fontSize="large" />
                         </IconButton>
                       )}
-
-     
                     </div>
                   </CardContent>
                 </Card>

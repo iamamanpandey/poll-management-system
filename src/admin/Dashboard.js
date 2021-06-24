@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/sidebar";
+import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { showPollRequest, deletePollReq } from "../redux/actions";
 import { Link } from "react-router-dom";
@@ -21,8 +22,16 @@ import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import FaceIcon from "@material-ui/icons/Face";
 import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
+
+const useStyles = makeStyles({
+  right: {
+    flexGrow: 1,
+  },
+});
+
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const poll = useSelector((state) => state.poll);
   useEffect(() => {
@@ -33,38 +42,28 @@ const Dashboard = () => {
     let answer = window.confirm("Are  you sure want to delete this poll");
     if (answer) {
       dispatch(deletePollReq(id));
+      toast.success("Poll has been deleted!");
     }
-    toast.success("Poll has been deleted!");
   };
 
   return (
-    <div >
+    <div>
       <Sidebar />
 
       {poll.isloadingPoll == true ? (
         <LinearProgress color="secondary" />
       ) : (
         <div>
-          <h1 className="m-4">All Polls </h1>
-          <div className="mx-4">
-            {!poll.data.data ? (
-              <LinearProgress color="secondary" />
-            ) : (
-              poll.data.data.map((user) => (
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={12} md={12} lg={6}>
+          <h1 className="m-4 text-center">All Polls </h1>
+          <Container>
+            <Grid container spacing={2}>
+              {!poll.data.data ? (
+                <LinearProgress color="secondary" />
+              ) : (
+                poll.data.data.map((user) => (
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
                     <Card elevation={1} variant="outlined">
-                      <CardHeader
-                        title={user.title}
-                        action={
-                          <IconButton style={{ color: "red" }}>
-                            <DeleteOutlined
-                              onClick={() => deleteConfirm(user._id)}
-                              fontSize="medium"
-                            />
-                          </IconButton>
-                        }
-                      />
+                      <CardHeader title={user.title} />
                       <Divider />
                       <CardContent>
                         <Typography variant="body2" color="textSecondary">
@@ -79,23 +78,34 @@ const Dashboard = () => {
                           </List>
                         </Typography>
                         <Divider />
+                        <div
+                          className="d-flex justify-content-between"
+                          style={{ marginBottom: "-3%" }}
+                        >
+                          <Link to={`/admin/polls/${user._id}`}>
+                            <Chip
+                              style={{ marginTop: "15%" }}
+                              icon={<FaceIcon />}
+                              label="View Poll"
+                              clickable
+                              color="primary"
+                            />
+                          </Link>
 
-                        <Link to={`/admin/polls/${user._id}`}>
-                          <Chip
-                            style={{ marginBottom: "-3%" }}
-                            icon={<FaceIcon />}
-                            label="View Poll"
-                            clickable
-                            color="primary"
-                          />
-                        </Link>
+                          <IconButton style={{ color: "red" }}>
+                            <DeleteOutlined
+                              onClick={() => deleteConfirm(user._id)}
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
                       </CardContent>
                     </Card>
                   </Grid>
-                </Grid>
-              ))
-            )}
-          </div>
+                ))
+              )}
+            </Grid>
+          </Container>
         </div>
       )}
     </div>
