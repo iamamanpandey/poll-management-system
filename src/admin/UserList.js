@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { toast } from "react-toastify";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -18,30 +20,42 @@ const useStyles = makeStyles({
 });
 
 const UserList = () => {
-  const [users, setusers] = useState();
   const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const [users, setusers] = useState([]);
   useEffect(() => {
     axios
       .get("https://secure-refuge-14993.herokuapp.com/list_users")
       .then((res) => {
-        console.log(res);
         setusers(res.data);
       })
       .catch(function (error) {
-        console.log(error);
+       toast.error(`${error.message}`)
       });
   }, []);
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+ 
   return (
     <div>
       <Sidebar />
-      {!users ? (
+      {!users.data ? (
         <LinearProgress color="secondary" />
       ) : (
         <TableContainer component={Paper} className="w-50 mx-auto my-4">
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
+                <TableCell>index</TableCell>
                 <TableCell>id</TableCell>
                 <TableCell>username</TableCell>
                 <TableCell>password</TableCell>
@@ -49,26 +63,31 @@ const UserList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.data.map((row) => {
-                return (
-                  <TableRow key={row._id}>
-                    <TableCell component="th" scope="row">
-                      {row._id}
-                    </TableCell>
-                    <TableCell>{row.username}</TableCell>
-
-                    <TableCell>{row.password}</TableCell>
-                    <TableCell>{row.role}</TableCell>
-                  </TableRow>
-                );
-              })}
+              {users.data &&
+                users.data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((user, index) => (
+                    <TableRow key={user._id}>
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>{user._id}</TableCell>
+                      <TableCell>{user.username}</TableCell>
+                      <TableCell>{user.password}</TableCell>
+                      <TableCell>{user.role}</TableCell>
+                    </TableRow>
+                  ))}
+                  
             </TableBody>
           </Table>
           <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        
-      />
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </TableContainer>
       )}
     </div>
