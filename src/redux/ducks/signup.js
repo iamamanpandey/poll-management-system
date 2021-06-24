@@ -16,13 +16,10 @@ export default (state = initialState, action) => {
       return { ...state, isloading: true,  isSuccess:false, isError:false};
     case SIGNUP_SUCCESS:
       return { ...state,user:data, isloading:false, isSuccess:true ,isError:false};
-      break;
       case SIGNUP_ERROR:
       return { ...state, userStatus:data, isloading: false,  isSuccess:false, isError:true};
-      break;
       case SIGNUP_DEFAULT:
       return { ...state,  isloading: false,  isSuccess:false, isError:false};
-      break;
     default:
       return state;
   }

@@ -29,6 +29,9 @@ const {
     }else if(isError){
       alert(userStatus.message)
       dispatch(dispatch({ type: 'SIGNUP_DEFAULT' }))
+      setName("")
+      setPassword("")
+      setrole("Guest")
     }
   },[isError,isSuccess] );
 

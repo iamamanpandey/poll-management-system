@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
 import { useHistory } from "react-router-dom";
 import Nav from "../Nav";
-import { toast } from "react-toastify";
 
 const Login = () => {
   const [name, setname] = useState();
@@ -19,7 +18,6 @@ const Login = () => {
     isSuccess,
     isloading,
     isError,
-    user = {},
     userStatus = "",
   } = useSelector((state) => state.user);
 
@@ -28,6 +26,9 @@ const Login = () => {
       history.push("/");
     } else if (isError) {
       alert(userStatus);
+      dispatch({ type: 'LOGIN_DEFAULT' })
+      setname("")
+      setpassword("")
     }
   }, [isSuccess, isError]);
 

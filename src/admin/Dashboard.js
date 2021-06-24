@@ -34,7 +34,7 @@ const Dashboard = () => {
           <div class="col-md-10 col-lg-10">
             {!poll.data.data ? (
               <div className="text-center my-4">
-                <span class="spinner-border spinner-border-lg mx-auto"></span>
+                <p>loading...</p>
               </div>
             ) : (
               poll.data.data.map((user) => (

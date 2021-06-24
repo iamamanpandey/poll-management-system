@@ -1,4 +1,4 @@
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS } from "../constants/actionTypes";
+import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS ,LOGIN_DEFAULT} from "../constants/actionTypes";
 
 const initialState = {
   user: { },
@@ -18,6 +18,8 @@ export default (state = initialState, action) => {
       return { ...state,user:data, isloading: false,isSuccess:true ,isError:false};
       case LOGIN_ERROR:
       return { ...state,userStatus:data.data, isloading: false,  isSuccess:false, isError:true};
+      case LOGIN_DEFAULT:
+        return { ...state,  isloading: false,  isSuccess:false, isError:false};
     default:
       return state;
   }
