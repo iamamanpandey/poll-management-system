@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TablePagination from "@material-ui/core/TablePagination";
+import Paper from "@material-ui/core/Paper";
+import LinearProgress from "@material-ui/core/LinearProgress";
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 const UserList = () => {
   const [users, setusers] = useState();
-
+  const classes = useStyles();
   useEffect(() => {
     axios
       .get("https://secure-refuge-14993.herokuapp.com/list_users")
@@ -20,38 +35,42 @@ const UserList = () => {
   return (
     <div>
       <Sidebar />
-      <div className="mx-auto  w-75">
-        <h1 className="text-center mb-4">All Polls </h1>
-
-        <table class="table w-75" style={{ marginLeft: "20%" }}>
-          <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Username</th>
-              <th scope="col">Password</th>
-              <th scope="col">Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!users ? (
-              <div className="text-center mx-auto">
-                <span class="spinner-border spinner-border-lg mx-auto"></span>
-              </div>
-            ) : (
-              users.data.map((user) => {
+      {!users ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <TableContainer component={Paper} className="w-50 mx-auto my-4">
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>id</TableCell>
+                <TableCell>username</TableCell>
+                <TableCell>password</TableCell>
+                <TableCell>role</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.data.map((row) => {
                 return (
-                  <tr key={user._id}>
-                    <th scope="row">{user._id}</th>
-                    <td>{user.username}</td>
-                    <td>{user.password}</td>
-                    <td>{user.role}</td>
-                  </tr>
+                  <TableRow key={row._id}>
+                    <TableCell component="th" scope="row">
+                      {row._id}
+                    </TableCell>
+                    <TableCell>{row.username}</TableCell>
+
+                    <TableCell>{row.password}</TableCell>
+                    <TableCell>{row.role}</TableCell>
+                  </TableRow>
                 );
-              })
-            )}
-          </tbody>
-        </table>
-      </div>
+              })}
+            </TableBody>
+          </Table>
+          <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        
+      />
+        </TableContainer>
+      )}
     </div>
   );
 };
