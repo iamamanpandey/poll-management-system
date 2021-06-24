@@ -1,7 +1,13 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 const AdminRoute = ({ children, ...rest }) => {
-  return <Route {...rest} render={() => children} />;
+  const token = localStorage.getItem("token", token);
+
+  if (token) {
+    return <Route {...rest} render={() => children} />;
+  } else {
+    return <Redirect to="/login"/>
+  }
 };
 export default AdminRoute;

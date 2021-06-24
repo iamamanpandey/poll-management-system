@@ -1,10 +1,19 @@
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
+export const LOGIN_DEFAULT = "LOGIN_DEFAULT";
+
+
 
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_DEFAULT = "SIGNUP_DEFAULT";
+
+
+
+
 
 export const CREATE_POLL_REQUEST = "CREATE_POLL_REQUEST";
 export const CREATE_POLL_ERROR = "CREATE_POLL_ERROR";

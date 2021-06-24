@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signupRequest } from "../redux/actions";
 import { useHistory } from "react-router-dom";
 import Nav from "../Nav";
@@ -13,13 +13,27 @@ const Register = () => {
 
   let history = useHistory();
 
-  const token = localStorage.getItem("token", token);
+const token = localStorage.getItem("token", token);
+
+const {
+  isSuccess,
+  isloading,
+  isError,
+  userStatus = "",
+} = useSelector((state) => state.signupUser);
 
   useEffect(() => {
-    if (token) {
-      history.push("/");
+    if (isSuccess && !isError){
+      history.push("/login");
+      dispatch(dispatch({ type: 'SIGNUP_DEFAULT' }))
+    }else if(isError){
+      alert(userStatus.message)
+      dispatch(dispatch({ type: 'SIGNUP_DEFAULT' }))
+      setName("")
+      setPassword("")
+      setrole("Guest")
     }
-  }, [token]);
+  },[isError,isSuccess] );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +42,6 @@ const Register = () => {
 
     dispatch(signupRequest(data));
 
-    history.push("/login");
   };
 
   return (
@@ -67,7 +80,9 @@ const Register = () => {
             <option value="Admin">Admin</option>
           </select>
         </div>
-        <Button>Submit</Button>
+        <Button type="submit">
+        {isloading === false ? <span>SUBMIT</span> : <span>loading...</span>}
+      </Button>
       </form>
     </div>
   );

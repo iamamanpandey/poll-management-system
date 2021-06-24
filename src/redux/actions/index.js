@@ -21,12 +21,21 @@ import {
   EDIT_TITLE_SUCCESS,
   ADD_VOTE_SUCCESS,
   ADD_VOTE_REQ,
+  LOGIN_ERROR,
+  SIGNUP_ERROR,
 } from "../constants/actionTypes";
 
 export const loginSuccess = (payload) => ({
   type: LOGIN_SUCCESS,
   payload,
 });
+
+export const loginError = (payload) => ({
+  type: LOGIN_ERROR,
+  payload,
+});
+
+
 
 export const loginRequest = (payload) => ({
   type: LOGIN_REQUEST,
@@ -40,6 +49,11 @@ export const signupRequest = (payload) => ({
 
 export const signupSuccess = (payload) => ({
   type: SIGNUP_SUCCESS,
+  payload,
+});
+
+export const signupError = (payload) => ({
+  type: SIGNUP_ERROR,
   payload,
 });
 

@@ -9,14 +9,10 @@ export const axiosCall = (methode, url, data, headers) => {
     case "post":
       return axios.post(URL, data, { headers });
     case "put":
-      return axios.put(URL, data, { headers });;
+      return axios.put(URL, data, { headers });
     case "delete":
-      return axios.delete(URL,{ headers });;
+      return axios.delete(URL, { headers });
     default:
       return axios.get(URL);
   }
 };
-
-
-
-

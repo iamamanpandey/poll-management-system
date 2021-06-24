@@ -1,9 +1,10 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
 import { useHistory } from "react-router-dom";
 import Nav from "../Nav";
+
 const Login = () => {
   const [name, setname] = useState();
   const [password, setpassword] = useState();
@@ -12,20 +13,34 @@ const Login = () => {
   let history = useHistory();
 
   const token = localStorage.getItem("token", token);
-  
+
+  const {
+    isSuccess,
+    isloading,
+    isError,
+    userStatus = "",
+  } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (token) {
-      history.push("/")}
-  }, [token]);
+    if (isSuccess && token) {
+      history.push("/");
+    } else if (isError) {
+      alert(userStatus);
+      dispatch({ type: 'LOGIN_DEFAULT' })
+      setname("")
+      setpassword("")
+    }
+  }, [isSuccess, isError]);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, password };
     if (!name || !password) return alert("empty fields");
     await dispatch(loginRequest(data));
-    history.push("/");
   };
+
   return (
     <div>
       <Nav />
@@ -45,13 +60,16 @@ const Login = () => {
         <div class="form-group">
           <label>Password</label>
           <input
+            type="password"
             class="form-control"
             placeholder="Password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {isloading === false ? <span>SUBMIT</span> : <span>loading...</span>}
+        </Button>
       </form>
     </div>
   );

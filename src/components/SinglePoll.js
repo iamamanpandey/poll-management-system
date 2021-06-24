@@ -25,7 +25,7 @@ const SinglePost = (props) => {
 
   const edittitle = () => {
     settitle(true);
- 
+
     settext(poll.singlePoll.data.title);
   };
 
@@ -34,13 +34,13 @@ const SinglePost = (props) => {
     const id = props.match.params.id;
     const data = { id, text };
     dispatch(editTitleReq(data));
-    toast.success("Title is updating!!")
+    toast.success("new Title is updating!!");
     settitle(false);
   };
 
   const addVote = ({ id, text }) => {
-    toast.success("your vote is adding!!");
     dispatch(addVoteReq({ id, text }));
+    toast.success(`you have succesfully voted to ${text}`);
   };
 
   const deleteConfirm = (id) => {
@@ -59,7 +59,7 @@ const SinglePost = (props) => {
 
     dispatch(addOptionReq(data));
     setoptions({ status: false });
-    toast.success("new Option has been added!!");
+    toast.success(`new Option ${value} has been added!`);
   };
 
   return (
@@ -147,7 +147,7 @@ const SinglePost = (props) => {
                               text: option.option,
                             })
                           );
-                          toast.success("option deleted!!");
+                          toast.success(`${option.option} option deleted!!`);
                         }}
                       >
                         <svg
@@ -217,20 +217,16 @@ const SinglePost = (props) => {
                     type="button"
                     onClick={() => setoptions({ status: true })}
                   >
-                    {poll.isloadingAddOption === true ? (
-                      <span class="spinner-border spinner-border-lg mx-auto"></span>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="black"
-                        class="bi bi-plus-lg"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
-                      </svg>
-                    )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="black"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                    </svg>
                   </button>
                 )}
               </div>

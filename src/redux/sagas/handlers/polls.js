@@ -64,7 +64,6 @@ export function* handleDeletePoll(action) {
       "delete",
       `/delete_poll?id=${action.payload}`
     );
-    console.log("response", response);
     if (response) {
       yield put(deletePollSuccess(response.data));
       yield put(showPollRequest());

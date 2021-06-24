@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import userReducer from "./ducks/user";
+import signupUserReducer from "./ducks/signup";
 import { watcherSaga } from "./sagas/rootSaga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import pollreducer from "./ducks/polls";
@@ -9,6 +10,7 @@ import voteReducer from "./ducks/vote";
 
 const reducer = combineReducers({
   user: userReducer,
+  signupUser:signupUserReducer,
   poll: pollreducer,
   singlePoll: singlePollReducer,
   vote: voteReducer,

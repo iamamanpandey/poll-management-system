@@ -2,9 +2,7 @@ import {
   GET_POLL_BY_ID,
   ADD_OPTION_SUCCESS,
   DELETE_OPTION_SUCCESS,
-  DELETE_POLL_SUCCESS,
   EDIT_TITLE_SUCCESS,
-  DELETE_POLL_REQ,
   EDIT_TITLE_REQ,
   DELETE_OPTION_REQ,
   ADD_OPTION_REQ,
@@ -25,11 +23,7 @@ export default (state = initialState, action) => {
       return { ...state,  isloadingSinglePoll:true, };
     case GET_POLL_BY_ID:
       return { ...state, singlePoll: action.payload , isloadingSinglePoll:false,};
-    case DELETE_POLL_SUCCESS:
-      return { ...state, singlePoll: action.payload };
-
-    case DELETE_POLL_REQ:
-      return { ...state };
+   
 
     case ADD_OPTION_REQ:
       return { ...state, isloadingAddOption: true };
