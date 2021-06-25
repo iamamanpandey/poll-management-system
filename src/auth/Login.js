@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
 import { useHistory } from "react-router-dom";
-import Nav from "../Nav";
 import { Button, TextField, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";

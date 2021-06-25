@@ -101,7 +101,7 @@ const Header = (props) => {
                 {menuItems.map((menuItem,i) => {
                   const { menuTitle, pageURL } = menuItem;
                   return (
-                    <MenuItem onClick={() => handleMenuClick(pageURL)} key={i}>
+                    <MenuItem onClick={() => handleMenuClick(pageURL)}>
                       {menuTitle}
                     </MenuItem>
                   );
