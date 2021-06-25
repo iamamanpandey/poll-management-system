@@ -4,6 +4,7 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
+import Container from "@material-ui/core/Container";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -35,7 +36,7 @@ const UserList = () => {
         setusers(res.data);
       })
       .catch(function (error) {
-       toast.error(`${error.message}`)
+        toast.error(`${error.message}`);
       });
   }, []);
 
@@ -43,52 +44,58 @@ const UserList = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
- 
   return (
     <div>
       <Sidebar />
       {!users.data ? (
         <LinearProgress color="secondary" />
       ) : (
-        <TableContainer component={Paper} className="w-50 mx-auto my-4">
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>index</TableCell>
-                <TableCell>id</TableCell>
-                <TableCell>username</TableCell>
-                <TableCell>password</TableCell>
-                <TableCell>role</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.data &&
-                users.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((user, index) => (
-                    <TableRow key={user._id}>
-                      <TableCell component="th" scope="row">
-                        {index + 1}
-                      </TableCell>
-                      <TableCell>{user._id}</TableCell>
-                      <TableCell>{user.username}</TableCell>
-                      <TableCell>{user.password}</TableCell>
-                      <TableCell>{user.role}</TableCell>
-                    </TableRow>
-                  ))}
-                  
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </TableContainer>
+        <Container>
+          <TableContainer component={Paper} className=" my-4" >
+            <Table className={classes.table} aria-label="simple table"  options={{
+              search: true
+            }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>username</TableCell>
+                  <TableCell>password</TableCell>
+                  <TableCell>role</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users.data &&
+                  users.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((user, index) => (
+                      <TableRow key={user._id}>
+                        <TableCell>{user._id}</TableCell>
+                        <TableCell>{user.username}</TableCell>
+                        <TableCell>{user.password}</TableCell>
+                        <TableCell>{user.role}</TableCell>
+                      </TableRow>
+                    ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={users.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </TableContainer>
+        </Container>
       )}
     </div>
   );

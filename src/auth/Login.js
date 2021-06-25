@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/actions/index";
 import { useHistory } from "react-router-dom";
 import Nav from "../Nav";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import LinearProgress from "@material-ui/core/LinearProgress";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -72,60 +72,66 @@ const Login = () => {
 
   return (
     <div>
-      <Nav />
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log In
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setpassword(e.target.value)}
-            />
+      {isloading === true ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Log In
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+              />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {isloading === false ? (
-                <span>SUBMIT</span>
-              ) : (
-                <span>loading...</span>
-              )}
-            </Button>
-          </form>
-        </div>
-      </Container>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                <span>Log In</span>
+              </Button>
+              <Grid class="text-center">
+                <Grid item>
+                  <Link to="/register" variant="body2">
+                    {"Don`t have an account? signUp"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Container>
+      )}
     </div>
   );
 };

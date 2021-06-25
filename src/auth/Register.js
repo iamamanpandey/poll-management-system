@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupRequest } from "../redux/actions";
 import { useHistory } from "react-router-dom";
-import Nav from "../Nav";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import { toast } from "react-toastify";
 import {
   Button,
   TextField,
   Select,
-  MenuItem,
   FormControl,
   InputLabel,
+  Grid,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -63,7 +62,7 @@ const Register = () => {
     if (isSuccess && !isError) {
       history.push("/login");
       dispatch(dispatch({ type: "SIGNUP_DEFAULT" }));
-      toast.error(`signup successfull`);
+      toast.success(`signup successfull`);
     } else if (isError) {
       toast.error(`${userStatus.message}`);
       dispatch(dispatch({ type: "SIGNUP_DEFAULT" }));
@@ -83,77 +82,85 @@ const Register = () => {
 
   return (
     <div>
-      <Nav />
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-             Sign Up
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-role-native-simple">
-                Role
-              </InputLabel>
-              <Select
-                native
-                label="role"
-                inputProps={{
-                  name: "role",
-                  id: "outlined-age-native-simple",
-                }}
-                onChange={(e) => setrole(e.target.value)}
-                value={role}
+      {isloading === true ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <FormControl variant="outlined" fullWidth>
+                <InputLabel htmlFor="outlined-role-native-simple" fullWidth>
+                  Role
+                </InputLabel>
+                <Select
+                  native
+                  label="role"
+                  inputProps={{
+                    name: "role",
+                    id: "outlined-age-native-simple",
+                  }}
+                  onChange={(e) => setrole(e.target.value)}
+                  value={role}
+                >
+                  <option value="Guest">Guest</option>
+                  <option value="Admin">Admin</option>
+                </Select>
+              </FormControl>
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
               >
-                <option value="Guest">Guest</option>
-                <option value="Admin">Admin</option>
-              </Select>
-            </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {isloading === false ? (
-                <span>SUBMIT</span>
-              ) : (
-                <span>loading...</span>
-              )}
-            </Button>
-          </form>
-        </div>
-      </Container>
+                <span>Sign Up</span>
+              </Button>
+
+              <Grid class="text-center">
+                <Grid item>
+                  <Link to="/login" variant="body2">
+                    {"Already have an account? login"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Container>
+      )}
     </div>
   );
 };
