@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { showPollRequest, deletePollReq } from "../redux/actions";
@@ -21,7 +21,7 @@ import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import FaceIcon from "@material-ui/icons/Face";
 import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from "@material-ui/lab/Pagination";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -39,11 +39,27 @@ const Dashboard = () => {
     }
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setcount] = useState(0);
+  const rowsPerPage = 4;
+
+  const begin = (currentPage - 1) * rowsPerPage;
+  const end = begin + rowsPerPage;
+
+  useEffect(() => {
+    if (poll.data.data) {
+      const data = Math.ceil(poll.data.data.length / 4);
+      setcount(data);
+    }
+  }, [poll.data]);
+  const handleChange = (e, p) => {
+    setCurrentPage(p);
+  };
+
   return (
     <div>
       <Sidebar />
-
-      {poll.isloadingPoll ===true ? (
+      {poll.isloadingPoll === true ? (
         <LinearProgress color="secondary" />
       ) : (
         <div>
@@ -53,7 +69,7 @@ const Dashboard = () => {
               {!poll.data.data ? (
                 <LinearProgress color="secondary" />
               ) : (
-                poll.data.data.map((user) => (
+                poll.data.data.slice(begin, end).map((user) => (
                   <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
                     <Card elevation={1} variant="outlined">
                       <CardHeader title={user.title} />
@@ -62,7 +78,7 @@ const Dashboard = () => {
                         <Typography variant="body2" color="textSecondary">
                           <List>
                             {user.options.map((item, i) => (
-                              <ListItem button key={i} alignItems="flex-start">
+                              <ListItem key={i} alignItems="flex-start">
                                 <ListItemText>
                                   {i + 1} - {item.option}
                                 </ListItemText>
@@ -74,7 +90,7 @@ const Dashboard = () => {
                         <div
                           className="d-flex justify-content-between"
                           style={{ marginBottom: "-3%" }}
-                         >
+                        >
                           <Link to={`/admin/polls/${user._id}`}>
                             <Chip
                               style={{ marginTop: "15%" }}
@@ -94,12 +110,21 @@ const Dashboard = () => {
                         </div>
                       </CardContent>
                     </Card>
-                    </Grid>
-                    ))
-                    )}
-                    </Grid>
-                    <Pagination count={10} color="secondary" />
+                  </Grid>
+                ))
+              )}
+            </Grid>
           </Container>
+          <div className="my-4 d-flex  justify-content-center ">
+            <Pagination
+              color="secondary"
+              variant="outlined"
+              size="large"
+              count={count}
+              page={currentPage}
+              onChange={handleChange}
+            />
+          </div>
         </div>
       )}
     </div>

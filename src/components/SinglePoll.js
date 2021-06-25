@@ -29,7 +29,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import PersistentDrawerLeft from './Drawer';
+import PersistentDrawerLeft from "./Drawer";
 const SinglePost = (props) => {
   const [title, settitle] = useState(false);
   const [text, settext] = useState(" ");
@@ -81,9 +81,9 @@ const SinglePost = (props) => {
 
   return (
     <div>
-    <PersistentDrawerLeft/>
+      <PersistentDrawerLeft />
       {poll.isloadingSinglePoll === true ? (
-        <div className="text-center my-4">
+        <div className="text-center my-3">
           <LinearProgress color="secondary" />
         </div>
       ) : (
