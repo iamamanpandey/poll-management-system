@@ -98,10 +98,10 @@ const Header = (props) => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuItems.map((menuItem) => {
+                {menuItems.map((menuItem,i) => {
                   const { menuTitle, pageURL } = menuItem;
                   return (
-                    <MenuItem onClick={() => handleMenuClick(pageURL)}>
+                    <MenuItem onClick={() => handleMenuClick(pageURL)} key={i}>
                       {menuTitle}
                     </MenuItem>
                   );

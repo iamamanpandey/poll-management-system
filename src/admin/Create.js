@@ -149,12 +149,12 @@ const Create = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="off"
-                  name="option1"
+                  name="option4"
                   variant="outlined"
                   required
                   fullWidth
-                  id="option1"
-                  label="option 1"
+                  id="option4"
+                  label="option 4"
                   autoFocus
                   value={options.opt4}
                   onChange={(e) =>

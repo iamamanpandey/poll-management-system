@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/sidebar";
-import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { showPollRequest, deletePollReq } from "../redux/actions";
 import { Link } from "react-router-dom";
@@ -22,16 +21,10 @@ import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import FaceIcon from "@material-ui/icons/Face";
 import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
-
-const useStyles = makeStyles({
-  right: {
-    flexGrow: 1,
-  },
-});
+import Pagination from '@material-ui/lab/Pagination';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const poll = useSelector((state) => state.poll);
   useEffect(() => {
@@ -50,7 +43,7 @@ const Dashboard = () => {
     <div>
       <Sidebar />
 
-      {poll.isloadingPoll == true ? (
+      {poll.isloadingPoll ===true ? (
         <LinearProgress color="secondary" />
       ) : (
         <div>
@@ -61,7 +54,7 @@ const Dashboard = () => {
                 <LinearProgress color="secondary" />
               ) : (
                 poll.data.data.map((user) => (
-                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
                     <Card elevation={1} variant="outlined">
                       <CardHeader title={user.title} />
                       <Divider />
@@ -81,7 +74,7 @@ const Dashboard = () => {
                         <div
                           className="d-flex justify-content-between"
                           style={{ marginBottom: "-3%" }}
-                        >
+                         >
                           <Link to={`/admin/polls/${user._id}`}>
                             <Chip
                               style={{ marginTop: "15%" }}
@@ -101,10 +94,11 @@ const Dashboard = () => {
                         </div>
                       </CardContent>
                     </Card>
-                  </Grid>
-                ))
-              )}
-            </Grid>
+                    </Grid>
+                    ))
+                    )}
+                    </Grid>
+                    <Pagination count={10} color="secondary" />
           </Container>
         </div>
       )}

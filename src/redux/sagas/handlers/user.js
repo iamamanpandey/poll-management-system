@@ -32,7 +32,7 @@ export function* handlelSignUpUser(action) {
     const response = yield call(
       axiosCall,
       "post",
-      `/add_user?username=${action.payload.name}&password=${action.payload.password}&password=${action.payload.role}`
+      `/add_user?username=${action.payload.name}&password=${action.payload.password}&role=${action.payload.role}`
     );
     if (response.data.error === 0) {
       yield put(signupSuccess(response.data, action.payload));
