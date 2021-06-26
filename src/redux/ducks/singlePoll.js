@@ -6,24 +6,27 @@ import {
   EDIT_TITLE_REQ,
   DELETE_OPTION_REQ,
   ADD_OPTION_REQ,
-  REQ_POLL_BY_ID
+  REQ_POLL_BY_ID,
 } from "../constants/actionTypes";
 
 const initialState = {
   singlePoll: [],
   isloadingAddOption: false,
   isloadingtitle: false,
-  isloadingSinglePoll:false,
+  isloadingSinglePoll: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
     case REQ_POLL_BY_ID:
-      return { ...state,  isloadingSinglePoll:true, };
+      return { ...state, isloadingSinglePoll: true };
     case GET_POLL_BY_ID:
-      return { ...state, singlePoll: action.payload , isloadingSinglePoll:false,};
-   
+      return {
+        ...state,
+        singlePoll: action.payload,
+        isloadingSinglePoll: false,
+      };
 
     case ADD_OPTION_REQ:
       return { ...state, isloadingAddOption: true };
