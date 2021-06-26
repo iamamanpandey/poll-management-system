@@ -98,7 +98,7 @@ const Header = (props) => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuItems.map((menuItem,i) => {
+                {menuItems.map((menuItem, i) => {
                   const { menuTitle, pageURL } = menuItem;
                   return (
                     <MenuItem onClick={() => handleMenuClick(pageURL)}>
@@ -110,10 +110,21 @@ const Header = (props) => {
             </div>
           ) : (
             <div className={classes.headerOptions}>
-              <Link class="active" to="/"  style={{color:'white'}}>Home</Link>
-              <Link to="/admin/userlist" style={{color:'white'}}>users</Link>
-              <Link to="/admin/create" style={{color:'white'}}> Create</Link>
-              <Link to="/login" onClick={() => localStorage.clear()}  style={{color:'white'}}>
+              <Link class="active" to="/" style={{ color: "white" }}>
+                Home
+              </Link>
+              <Link to="/admin/userlist" style={{ color: "white" }}>
+                users
+              </Link>
+              <Link to="/admin/create" style={{ color: "white" }}>
+                {" "}
+                Create
+              </Link>
+              <Link
+                to="/login"
+                onClick={() => localStorage.clear()}
+                style={{ color: "white" }}
+              >
                 LogOut
               </Link>
             </div>
