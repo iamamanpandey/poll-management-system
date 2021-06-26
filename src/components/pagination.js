@@ -48,10 +48,10 @@ const Dashboard = () => {
   const end = begin + rowsPerPage;
 
   useEffect(() => {
-   if(poll.data){
-     setcount(poll.data.length)
-   }
-  }, [poll.data])
+    if (poll.data) {
+      setcount(poll.data.length);
+    }
+  }, [poll.data]);
 
   const handleChange = (e, p) => {
     setCurrentPage(p);
