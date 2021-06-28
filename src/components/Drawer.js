@@ -19,7 +19,7 @@ import { withRouter } from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import CreateIcon from '@material-ui/icons/Create';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
@@ -91,6 +91,8 @@ const MiniDrawer = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const name = localStorage.getItem("user");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -116,9 +118,9 @@ const MiniDrawer = (props) => {
       onClick: () => history.push("/admin/create")
     },
     {
-      text: "LogOut",
-      icon: <CreateIcon />,
-      onClick: () => history.push("/login")
+      text: `Logout (${name})`,
+      icon: <ExitToAppIcon />,
+      onClick: () => { history.push("/login"), localStorage.clear() }
     }
   ];
 
@@ -184,13 +186,8 @@ const MiniDrawer = (props) => {
           })}
         </List>
       </Drawer>
-
-
       {/* <main className={classes.content}>
-        <div className={classes.toolbar} />
-
-
-
+        <div className={classes.toolbar} 
       </main> */}
     </div>
   );

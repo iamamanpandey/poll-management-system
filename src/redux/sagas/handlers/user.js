@@ -15,9 +15,10 @@ export function* handleloginUser(action) {
       "get",
       `/login?username=${action.payload.name}&password=${action.payload.password}`
     );
-    //  console.log(response.data.error, "response")
     if (response.data.error === 0) {
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user",action.payload.name );
+
       yield put(loginSuccess(response.data, action.payload));
     } else {
       yield put(loginError(response.data, action.payload));

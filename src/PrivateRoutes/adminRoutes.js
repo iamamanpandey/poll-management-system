@@ -1,20 +1,48 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import Drawer from '../components/Drawer'
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
-
-
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
   hide: {
     display: "none",
   },
-
-
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   drawerClose: {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -34,12 +62,12 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
 }));
+
 
 
 const AdminRoute = ({ children, ...rest }) => {
@@ -50,7 +78,7 @@ const AdminRoute = ({ children, ...rest }) => {
     return (
       <div className={classes.content}>
         <div className={classes.content}>
-          <Drawer />
+          <Drawer variant="permanent"/>
           <Route {...rest} render={() => children} />
         </div>
       </div>
@@ -59,4 +87,5 @@ const AdminRoute = ({ children, ...rest }) => {
     return <Redirect to="/login" />
   }
 };
+
 export default AdminRoute;
