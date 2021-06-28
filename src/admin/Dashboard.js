@@ -58,75 +58,74 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Sidebar />
       {poll.isloadingPoll === true ? (
         <LinearProgress color="secondary" />
       ) : (
-        <div>
-          <h1 className="m-4 text-center">All Polls </h1>
-          <Container>
-            <Grid container spacing={2}>
-              {!poll.data.data ? (
-                <LinearProgress color="secondary" />
-              ) : (
-                poll.data.data.slice(begin, end).map((user) => (
-                  <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
-                    <Card elevation={1} variant="outlined">
-                      <CardHeader title={user.title} />
-                      <Divider />
-                      <CardContent>
-                        <Typography variant="body2" color="textSecondary">
-                          <List>
-                            {user.options.map((item, i) => (
-                              <ListItem key={i} alignItems="flex-start">
-                                <ListItemText>
-                                  {i + 1} - {item.option}
-                                </ListItemText>
-                              </ListItem>
-                            ))}
-                          </List>
-                        </Typography>
-                        <Divider />
-                        <div
-                          className="d-flex justify-content-between"
-                          style={{ marginBottom: "-3%" }}
-                        >
-                          <Link to={`/admin/polls/${user._id}`}>
-                            <Chip
-                              style={{ marginTop: "15%" }}
-                              icon={<FaceIcon />}
-                              label="View Poll"
-                              clickable
-                              color="primary"
-                            />
-                          </Link>
+          <div>
+            <h1 className="m-4 text-center">All Polls </h1>
+            <Container>
+              <Grid container spacing={2}>
+                {!poll.data.data ? (
+                  <LinearProgress color="secondary" />
+                ) : (
+                    poll.data.data.slice(begin, end).map((user) => (
+                      <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
+                        <Card elevation={1} variant="outlined">
+                          <CardHeader title={user.title} />
+                          <Divider />
+                          <CardContent>
+                            <Typography variant="body2" color="textSecondary">
+                              <List>
+                                {user.options.map((item, i) => (
+                                  <ListItem key={i} alignItems="flex-start">
+                                    <ListItemText>
+                                      {i + 1} - {item.option}
+                                    </ListItemText>
+                                  </ListItem>
+                                ))}
+                              </List>
+                            </Typography>
+                            <Divider />
+                            <div
+                              className="d-flex justify-content-between"
+                              style={{ marginBottom: "-3%" }}
+                            >
+                              <Link to={`/admin/polls/${user._id}`}>
+                                <Chip
+                                  style={{ marginTop: "15%" }}
+                                  icon={<FaceIcon />}
+                                  label="View Poll"
+                                  clickable
+                                  color="primary"
+                                />
+                              </Link>
 
-                          <IconButton style={{ color: "red" }}>
-                            <DeleteOutlined
-                              onClick={() => deleteConfirm(user._id)}
-                              fontSize="large"
-                            />
-                          </IconButton>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))
-              )}
-            </Grid>
-          </Container>
-          <div className="my-4 d-flex  justify-content-center ">
-            <Pagination
-              color="secondary"
-              variant="outlined"
-              size="large"
-              count={count}
-              page={currentPage}
-              onChange={handleChange}
-            />
+                              <IconButton style={{ color: "red" }}>
+                                <DeleteOutlined
+                                  onClick={() => deleteConfirm(user._id)}
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    ))
+                  )}
+              </Grid>
+            </Container>
+            <div className="my-4 d-flex  justify-content-center ">
+              <Pagination
+                color="secondary"
+                variant="outlined"
+                size="large"
+                count={count}
+                page={currentPage}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };

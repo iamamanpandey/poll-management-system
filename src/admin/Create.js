@@ -73,7 +73,6 @@ const Create = () => {
 
   return (
     <div>
-      <Sidebar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

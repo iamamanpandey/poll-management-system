@@ -49,7 +49,6 @@ const UserList = () => {
 
   return (
     <div>
-      <Sidebar />
       {!users.data ? (
         <LinearProgress color="secondary" />
       ) : (

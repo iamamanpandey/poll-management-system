@@ -15,11 +15,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
 import { withRouter } from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import CreateIcon from '@material-ui/icons/Create';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -70,14 +71,21 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
- 
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
 }));
 
-const MiniDrawer=(props)=> {
+const MiniDrawer = (props) => {
   const classes = useStyles();
   const { history } = props;
   const theme = useTheme();
@@ -86,10 +94,11 @@ const MiniDrawer=(props)=> {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  console.log("porps", props.location.pathname)
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const itemsList = [
     {
       text: "Home",
@@ -105,11 +114,17 @@ const MiniDrawer=(props)=> {
       text: "Create",
       icon: <CreateIcon />,
       onClick: () => history.push("/admin/create")
+    },
+    {
+      text: "LogOut",
+      icon: <CreateIcon />,
+      onClick: () => history.push("/login")
     }
   ];
 
   return (
     <div className={classes.root}>
+
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -152,26 +167,31 @@ const MiniDrawer=(props)=> {
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon />
-            )}
+                <ChevronLeftIcon />
+              )}
           </IconButton>
         </div>
         <Divider />
         <List>
-        {itemsList.map((item, index) => {
-          const { text, icon, onClick } = item;
-          return (
-            <ListItem button key={text} onClick={onClick}>
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
-              <ListItemText primary={text} />
-            </ListItem>
-          );
-        })}
-      </List>
+          {itemsList.map((item, index) => {
+            const { text, icon, onClick } = item;
+            return (
+              <ListItem button key={text} onClick={onClick}>
+                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText primary={text} />
+              </ListItem>
+            );
+          })}
+        </List>
       </Drawer>
-      <main className={classes.content}>
+
+
+      {/* <main className={classes.content}>
         <div className={classes.toolbar} />
-      </main>
+
+
+
+      </main> */}
     </div>
   );
 }
