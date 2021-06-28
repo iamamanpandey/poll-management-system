@@ -61,15 +61,15 @@ const Dashboard = () => {
       {poll.isloadingPoll === true ? (
         <LinearProgress color="secondary" />
       ) : (
-          <div>
-            <h1 className="m-4 text-center">All Polls </h1>
+          <div className="container">
+            <h1 className="m-4 text-center">All Polls </h1> 
             <Container>
               <Grid container spacing={2}>
                 {!poll.data.data ? (
                   <LinearProgress color="secondary" />
                 ) : (
                     poll.data.data.slice(begin, end).map((user) => (
-                      <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
+                      <Grid item xs={12} sm={12} md={6} lg={12} key={user._id}>
                         <Card elevation={1} variant="outlined">
                           <CardHeader title={user.title} />
                           <Divider />

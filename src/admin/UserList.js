@@ -44,15 +44,18 @@ const UserList = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
   return (
-    <div>
+    <div  className="container">
+
       {!users.data ? (
         <LinearProgress color="secondary" />
       ) : (
         <Container>
+           <h1 className="m-4 text-center">All Users </h1> 
           <TableContainer component={Paper} className=" my-4" >
             <Table className={classes.table} aria-label="simple table"  options={{
               search: true
