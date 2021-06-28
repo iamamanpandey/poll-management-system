@@ -109,26 +109,26 @@ const Header = (props) => {
               </Menu>
             </div>
           ) : (
-            <div className={classes.headerOptions}>
-              <Link class="active" to="/" style={{ color: "white" }}>
-                Home
+              <div className={classes.headerOptions}>
+                <Link class="active" to="/" style={{ color: "white" }}>
+                  Home
               </Link>
-              <Link to="/admin/userlist" style={{ color: "white" }}>
-                users
+                <Link to="/admin/userlist" style={{ color: "white" }}>
+                  users
               </Link>
-              <Link to="/admin/create" style={{ color: "white" }}>
-                {" "}
+                <Link to="/admin/create" style={{ color: "white" }}>
+                  {" "}
                 Create
               </Link>
-              <Link
-                to="/login"
-                onClick={() => localStorage.clear()}
-                style={{ color: "white" }}
-              >
-                LogOut
+                <Link
+                  to="/login"
+                  onClick={() => localStorage.clear()}
+                  style={{ color: "white" }}
+                >
+                  LogOut
               </Link>
-            </div>
-          )}
+              </div>
+            )}
         </Toolbar>
       </AppBar>
     </div>
