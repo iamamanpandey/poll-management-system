@@ -23,7 +23,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Modal from '../components/Modal'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -72,9 +72,9 @@ const Dashboard = () => {
   return (
     <div>
       {poll.isloadingPoll === true ? (
-       <div className="my-4 pt-3 w-100">
-       <LinearProgress color="secondary" />
-     </div>
+        <div className="my-4 pt-3 w-100">
+          <LinearProgress color="secondary" />
+        </div>
       ) : (
           <div  >
             <Container>
@@ -115,12 +115,6 @@ const Dashboard = () => {
                                   />
                                 </Link>
 
-                                <IconButton style={{ color: "red" }}>
-                                  <DeleteOutlined
-                                    onClick={() => deleteConfirm(user._id)}
-                                    fontSize="large"
-                                  />
-                                </IconButton>
                               </div>
                             </CardContent>
                           </Card>
