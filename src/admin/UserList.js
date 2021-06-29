@@ -1,136 +1,45 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import Container from "@material-ui/core/Container";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TablePagination from "@material-ui/core/TablePagination";
-import Paper from "@material-ui/core/Paper";
+import React, { useState, useEffect } from "react";
+import { DataGrid } from "@material-ui/data-grid";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { toast } from "react-toastify";
+import axios from "axios";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
+const columns = [
+  { field: "_id", headerName: "ID", width: 250 },
+  { field: "username", headerName: "username", width: 150 },
+  { field: "password", headerName: "password", width: 150 },
+  { field: "role", headerName: "role", width: 150 }
+];
 
-const UserList = () => {
-  const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+const DataTable = () => {
+  const [tableData, setTableData] = useState([]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const [users, setusers] = useState([]);
+
 
   useEffect(() => {
-    axios
-      .get("https://secure-refuge-14993.herokuapp.com/list_users")
-      .then((res) => {
-        setusers(res.data);
-      })
-      .catch(function (error) {
-        toast.error(`${error.message}`);
-      });
-  }, []);
-
-  function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
+    fetch("https://secure-refuge-14993.herokuapp.com/list_users ")
+      .then((data) => data.json())
+      .then((data) => setTableData(data.data));
+  }, [tableData]);
   
-  function getComparator(order, orderBy) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-  
-  function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-  }
-  
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
-
   return (
-    <div >
-
-      {!users.data ? (
-        <div className="my-4 pt-3 w-100">
-        <LinearProgress color="secondary" />
-      </div>
+    <div style={{ height: 700, width: "100%" }}>
+      {!tableData ? (
+        <div className="my-4 pt-4 w-100">
+          <LinearProgress color="secondary" />
+        </div>
       ) : (
-        <Container>
-           <h1 className="m-4 pt-4 text-center">All Users </h1> 
-          <TableContainer component={Paper} className=" my-4" >
-            <Table className={classes.table} aria-label="simple table"  options={{
-              search: true
-            }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>id</TableCell>
-                  <TableCell>username</TableCell>
-                  <TableCell>password</TableCell>
-                  <TableCell>role</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.data &&
-                  users.data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((user, index) => (
-                      <TableRow key={user._id}>
-                        <TableCell>{user._id}</TableCell>
-                        <TableCell>{user.username}</TableCell>
-                        <TableCell>{user.password}</TableCell>
-                        <TableCell>{user.role}</TableCell>
-                      </TableRow>
-                    ))}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={users.data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </TableContainer>
-        </Container>
-      )}
+
+          <DataGrid
+            getRowId={(row) => row._id}
+            rows={tableData}
+            columns={columns}
+            pageSize={12}
+          />
+        )}
+
     </div>
   );
 };
 
-export default UserList;
+export default DataTable;
