@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   reqPollById,
-  deletePollReq,
+  
   deleteOptionReq,
   addVoteReq,
   editTitleReq,
@@ -22,7 +22,6 @@ import {
 } from "@material-ui/core";
 
 import ListItemText from "@material-ui/core/ListItemText";
-import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -35,10 +34,8 @@ import Modal from '../components/Modal'
 const SinglePost = (props) => {
   const [title, settitle] = useState(false);
   const [text, settext] = useState(" ");
-  const [open, setOpen] = useState(false);
   const [options, setoptions] = useState({ value: " ", status: false });
   const dispatch = useDispatch();
-  const history = useHistory();
 
 
   const poll = useSelector((state) => state.singlePoll);

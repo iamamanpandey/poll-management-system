@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { showPollRequest, deletePollReq } from "../redux/actions";
+import { showPollRequest } from "../redux/actions";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import {
   Divider,
   CardHeader,
   ListItem,
   List,
-  IconButton,
   CardContent,
   Container,
   Grid,
@@ -17,13 +14,11 @@ import {
   Typography,
   Chip,
 } from "@material-ui/core";
-import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import FaceIcon from "@material-ui/icons/Face";
 import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from '../components/Modal'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,13 +39,13 @@ const Dashboard = () => {
     dispatch(showPollRequest());
   }, [dispatch]);
 
-  const deleteConfirm = (id) => {
-    let answer = window.confirm("Are  you sure want to delete this poll");
-    if (answer) {
-      dispatch(deletePollReq(id));
-      toast.success("Poll has been deleted!");
-    }
-  };
+  // const deleteConfirm = (id) => {
+  //   let answer = window.confirm("Are  you sure want to delete this poll");
+  //   if (answer) {
+  //     dispatch(deletePollReq(id));
+  //     toast.success("Poll has been deleted!");
+  //   }
+  // };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setcount] = useState(0);
