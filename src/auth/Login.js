@@ -71,66 +71,76 @@ const Login = () => {
 
   return (
     <div>
-      {isloading === true ? (
+      {isloading === true ?
         <LinearProgress color="secondary" />
-      ) : (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Log In
+        : null}
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log In
             </Typography>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                value={name}
-                onChange={(e) => setname(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setpassword(e.target.value)}
-              />
-
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+            />
+            {!isloading ?
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
+                className="my-2"
               >
                 <span>Log In</span>
-              </Button>
-              <Grid class="text-center">
-                <Grid item>
-                  <Link to="/register" variant="body2">
-                    {"Don`t have an account? signUp"}
-                  </Link>
-                </Grid>
+              </Button> :
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className="my-2"
+                disabled
+              >
+                <span>Log In</span>
+              </Button>}
+            <Grid class="text-center my-2">
+              <Grid item>
+                <Link to="/register" variant="body2">
+                  {"Don`t have an account? signUp"}
+                </Link>
               </Grid>
-            </form>
-          </div>
-        </Container>
-      )}
+            </Grid>
+          </form>
+        </div>
+      </Container>
+
     </div>
   );
 };

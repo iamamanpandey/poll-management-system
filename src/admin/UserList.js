@@ -49,13 +49,15 @@ const UserList = () => {
     rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
   return (
-    <div  className="container">
+    <div >
 
       {!users.data ? (
+        <div className="my-4 pt-3 w-100">
         <LinearProgress color="secondary" />
+      </div>
       ) : (
         <Container>
-           <h1 className="m-4 text-center">All Users </h1> 
+           <h1 className="m-4 pt-4 text-center">All Users </h1> 
           <TableContainer component={Paper} className=" my-4" >
             <Table className={classes.table} aria-label="simple table"  options={{
               search: true

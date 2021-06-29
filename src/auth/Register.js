@@ -84,61 +84,62 @@ const Register = () => {
     <div>
       {isloading === true ? (
         <LinearProgress color="secondary" />
-      ) : (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
+      ) : (null)}
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign Up
             </Typography>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel htmlFor="outlined-role-native-simple" fullWidth>
-                  Role
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FormControl variant="outlined" fullWidth className="my-1">
+              <InputLabel htmlFor="outlined-role-native-simple" fullWidth>
+                Role
                 </InputLabel>
-                <Select
-                  native
-                  label="role"
-                  inputProps={{
-                    name: "role",
-                    id: "outlined-age-native-simple",
-                  }}
-                  onChange={(e) => setrole(e.target.value)}
-                  value={role}
-                >
-                  <option value="Guest">Guest</option>
-                  <option value="Admin">Admin</option>
-                </Select>
-              </FormControl>
+              <Select
+                native
+                label="role"
+                inputProps={{
+                  name: "role",
+                  id: "outlined-age-native-simple",
+                }}
+                onChange={(e) => setrole(e.target.value)}
+                value={role}
+              >
+                <option value="Guest">Guest</option>
+                <option value="Admin">Admin</option>
+              </Select>
+            </FormControl>
+            {!isloading ?
 
               <Button
                 type="submit"
@@ -148,19 +149,28 @@ const Register = () => {
                 className={classes.submit}
               >
                 <span>Sign Up</span>
+              </Button> :
+               <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                disabled
+              >
+                <span>Sign Up</span>
               </Button>
-
-              <Grid class="text-center">
-                <Grid item>
-                  <Link to="/login" variant="body2">
-                    {"Already have an account? login"}
-                  </Link>
-                </Grid>
+            }
+            <Grid class="text-center">
+              <Grid item>
+                <Link to="/login" variant="body2">
+                  {"Already have an account? login"}
+                </Link>
               </Grid>
-            </form>
-          </div>
-        </Container>
-      )}
+            </Grid>
+          </form>
+        </div>
+      </Container>
+
     </div>
   );
 };

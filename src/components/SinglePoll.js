@@ -30,6 +30,8 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
+
+
 const SinglePost = (props) => {
   const [title, settitle] = useState(false);
   const [text, settext] = useState(" ");
@@ -82,13 +84,13 @@ const SinglePost = (props) => {
   return (
     <div>
       {poll.isloadingSinglePoll === true ? (
-        <div className="text-center my-3">
+        <div className="my-4 pt-3 w-100">
           <LinearProgress color="secondary" />
         </div>
       ) : (
-        <div className="container pb-5 ">
+        <div className="container pb-5  ">
           <br />
-          <h1 className="text-center">Poll Details</h1>
+          <h1 className="text-center my-4">Poll Details</h1>
           {!poll.singlePoll.data ? (
             <Grid container spacing={2}>
               <LinearProgress color="secondary" />

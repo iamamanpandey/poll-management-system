@@ -22,9 +22,22 @@ import FaceIcon from "@material-ui/icons/Face";
 import ListItemText from "@material-ui/core/ListItemText";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Pagination from "@material-ui/lab/Pagination";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+
+  }
+}))
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const poll = useSelector((state) => state.poll);
   useEffect(() => {
@@ -59,62 +72,65 @@ const Dashboard = () => {
   return (
     <div>
       {poll.isloadingPoll === true ? (
-        <LinearProgress color="secondary" />
+       <div className="my-4 pt-3 w-100">
+       <LinearProgress color="secondary" />
+     </div>
       ) : (
-          <div className="container">
-            <h1 className="m-4 text-center">All Polls </h1> 
+          <div  >
             <Container>
-              <Grid container spacing={2}>
-                {!poll.data.data ? (
-                  <LinearProgress color="secondary" />
-                ) : (
-                    poll.data.data.slice(begin, end).map((user) => (
-                      <Grid item xs={12} sm={12} md={6} lg={12} key={user._id}>
-                        <Card elevation={1} variant="outlined">
-                          <CardHeader title={user.title} />
-                          <Divider />
-                          <CardContent>
-                            <Typography variant="body2" color="textSecondary">
-                              <List>
-                                {user.options.map((item, i) => (
-                                  <ListItem key={i} alignItems="flex-start">
-                                    <ListItemText>
-                                      {i + 1} - {item.option}
-                                    </ListItemText>
-                                  </ListItem>
-                                ))}
-                              </List>
-                            </Typography>
+              <div className={classes.paper}>
+                <Grid container spacing={2}>
+                  {!poll.data.data ? (
+                    <LinearProgress color="secondary" />
+                  ) : (
+                      poll.data.data.slice(begin, end).map((user) => (
+                        <Grid item xs={12} sm={12} md={6} lg={6} key={user._id}>
+                          <Card elevation={1} variant="outlined">
+                            <CardHeader title={user.title} />
                             <Divider />
-                            <div
-                              className="d-flex justify-content-between"
-                              style={{ marginBottom: "-3%" }}
-                            >
-                              <Link to={`/admin/polls/${user._id}`}>
-                                <Chip
-                                  style={{ marginTop: "15%" }}
-                                  icon={<FaceIcon />}
-                                  label="View Poll"
-                                  clickable
-                                  color="primary"
-                                />
-                              </Link>
+                            <CardContent>
+                              <Typography variant="body2" color="textSecondary">
+                                <List>
+                                  {user.options.map((item, i) => (
+                                    <ListItem key={i} alignItems="flex-start">
+                                      <ListItemText>
+                                        {i + 1} - {item.option}
+                                      </ListItemText>
+                                    </ListItem>
+                                  ))}
+                                </List>
+                              </Typography>
+                              <Divider />
+                              <div
+                                className="d-flex justify-content-between"
+                                style={{ marginBottom: "-3%" }}
+                              >
+                                <Link to={`/admin/polls/${user._id}`}>
+                                  <Chip
+                                    style={{ marginTop: "15%" }}
+                                    icon={<FaceIcon />}
+                                    label="View Poll"
+                                    clickable
+                                    color="primary"
+                                  />
+                                </Link>
 
-                              <IconButton style={{ color: "red" }}>
-                                <DeleteOutlined
-                                  onClick={() => deleteConfirm(user._id)}
-                                  fontSize="large"
-                                />
-                              </IconButton>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    ))
-                  )}
-              </Grid>
+                                <IconButton style={{ color: "red" }}>
+                                  <DeleteOutlined
+                                    onClick={() => deleteConfirm(user._id)}
+                                    fontSize="large"
+                                  />
+                                </IconButton>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      ))
+                    )}
+                </Grid>
+              </div>
             </Container>
-            <div className="my-4 d-flex  justify-content-center ">
+            <div className="my-4  d-flex justify-content-center">
               <Pagination
                 color="secondary"
                 variant="outlined"
