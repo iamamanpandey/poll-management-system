@@ -29,7 +29,6 @@ const UserList = () => {
     setPage(newPage);
   };
   const [users, setusers] = useState([]);
-
   useEffect(() => {
     axios
       .get("https://secure-refuge-14993.herokuapp.com/list_users")
@@ -40,33 +39,6 @@ const UserList = () => {
         toast.error(`${error.message}`);
       });
   }, []);
-
-  function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-  
-  function getComparator(order, orderBy) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-  
-  function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-  }
-  
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -81,54 +53,54 @@ const UserList = () => {
 
       {!users.data ? (
         <div className="my-4 pt-3 w-100">
-        <LinearProgress color="secondary" />
-      </div>
+          <LinearProgress color="secondary" />
+        </div>
       ) : (
-        <Container>
-           <h1 className="m-4 pt-4 text-center">All Users </h1> 
-          <TableContainer component={Paper} className=" my-4" >
-            <Table className={classes.table} aria-label="simple table"  options={{
-              search: true
-            }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>id</TableCell>
-                  <TableCell>username</TableCell>
-                  <TableCell>password</TableCell>
-                  <TableCell>role</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.data &&
-                  users.data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((user, index) => (
-                      <TableRow key={user._id}>
-                        <TableCell>{user._id}</TableCell>
-                        <TableCell>{user.username}</TableCell>
-                        <TableCell>{user.password}</TableCell>
-                        <TableCell>{user.role}</TableCell>
-                      </TableRow>
-                    ))}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
+          <Container>
+            <h1 className="m-4 pt-4 text-center">All Users </h1>
+            <TableContainer component={Paper} className=" my-4" >
+              <Table className={classes.table} aria-label="simple table" options={{
+                search: true
+              }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>id</TableCell>
+                    <TableCell>username</TableCell>
+                    <TableCell>password</TableCell>
+                    <TableCell>role</TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={users.data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </TableContainer>
-        </Container>
-      )}
+                </TableHead>
+                <TableBody>
+                  {users.data &&
+                    users.data
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((user, index) => (
+                        <TableRow key={user._id}>
+                          <TableCell>{user._id}</TableCell>
+                          <TableCell>{user.username}</TableCell>
+                          <TableCell>{user.password}</TableCell>
+                          <TableCell>{user.role}</TableCell>
+                        </TableRow>
+                      ))}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={users.data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
+            </TableContainer>
+          </Container>
+        )}
     </div>
   );
 };

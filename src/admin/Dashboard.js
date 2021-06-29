@@ -60,6 +60,8 @@ const Dashboard = () => {
       setcount(data);
     }
   }, [poll.data]);
+
+  
   const handleChange = (e, p) => {
     setCurrentPage(p);
   };
