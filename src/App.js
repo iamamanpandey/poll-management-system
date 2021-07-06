@@ -37,7 +37,6 @@ const App = () => {
           sign-in
               </button>
         :
-
         <div>
           {event &&
             event.map((item) => {
